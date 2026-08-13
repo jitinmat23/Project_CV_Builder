@@ -18,6 +18,7 @@ type Education = {
 
 type Certification = {
   name: string
+  url: string
 }
 
 type Language = {
@@ -42,10 +43,30 @@ function App() {
   const [location, setLocation] = useState('85051 Ingolstadt')
   const [nationality, setNationality] = useState('Deutsch')
   const [drivingLicence, setDrivingLicence] = useState('B Klasse')
+  const [birthday, setBirthday] = useState('23.04.1993, Mysuru')
+
   const [linkedin, setLinkedin] = useState(
     'linkedin.com/in/jitin-mathew-thomas-84115bb1'
   )
-  const [birthday, setBirthday] = useState('23.04.1993, Mysuru')
+
+  const [linkedinUrl, setLinkedinUrl] = useState(
+    'https://www.linkedin.com/in/jitin-mathew-thomas-84115bb1/'
+  )
+
+  const [xing, setXing] = useState('xing.com/profile/Jitin_Mathew')
+
+  const [xingUrl, setXingUrl] = useState(
+    'https://www.xing.com/'
+  )
+
+  const [github, setGithub] = useState(
+    'github.com/jitinmathew'
+  )
+
+  const [githubUrl, setGithubUrl] = useState(
+    'https://github.com/jitinmathew'
+  )
+
   const [photo, setPhoto] = useState('')
 
   const [profile, setProfile] = useState(
@@ -188,21 +209,26 @@ function App() {
       {
         name:
           'Certified Tester Advanced Level Test Analyst (ISTQB)',
+        url: '',
       },
       {
         name:
           'Certified Professional for Requirements Engineering - Foundation Level (IREB)',
+        url: '',
       },
       {
         name: 'Scrum Master',
+        url: '',
       },
       {
         name:
           'Fundamentals of High Voltage Systems in Electric Vehicles (TÜV SÜD)',
+        url: '',
       },
       {
         name:
           'Certified Tester Foundation Level (ISTQB)',
+        url: '',
       },
     ])
 
@@ -237,6 +263,9 @@ function App() {
   const [publication, setPublication] =
     useState('IEEE VPPC Conference, 2021')
 
+  const [publicationUrl, setPublicationUrl] =
+    useState('')
+
   const [hobbies, setHobbies] =
     useState('Badminton, Travelling, Guitar, Cycling')
 
@@ -260,6 +289,28 @@ function App() {
     }
 
     reader.readAsDataURL(file)
+  }
+
+  /* =====================================================
+     HELPER
+     ===================================================== */
+
+  function getSafeUrl(url: string) {
+    const trimmedUrl = url.trim()
+
+    if (!trimmedUrl) {
+      return ''
+    }
+
+    if (
+      trimmedUrl.startsWith('https://') ||
+      trimmedUrl.startsWith('http://') ||
+      trimmedUrl.startsWith('mailto:')
+    ) {
+      return trimmedUrl
+    }
+
+    return `https://${trimmedUrl}`
   }
 
   /* =====================================================
@@ -384,18 +435,21 @@ function App() {
       ...certifications,
       {
         name: 'New Certification',
+        url: '',
       },
     ])
   }
 
   function updateCertification(
     index: number,
+    field: keyof Certification,
     value: string
   ) {
     const updated = [...certifications]
 
     updated[index] = {
-      name: value,
+      ...updated[index],
+      [field]: value,
     }
 
     setCertifications(updated)
@@ -603,9 +657,7 @@ function App() {
               <input
                 value={drivingLicence}
                 onChange={(e) =>
-                  setDrivingLicence(
-                    e.target.value
-                  )
+                  setDrivingLicence(e.target.value)
                 }
               />
             </label>
@@ -621,8 +673,10 @@ function App() {
               />
             </label>
 
+            {/* LINKEDIN */}
+
             <label>
-              LinkedIn
+              LinkedIn Display Text
 
               <input
                 value={linkedin}
@@ -631,6 +685,73 @@ function App() {
                 }
               />
             </label>
+
+            <label>
+              LinkedIn URL
+
+              <input
+                type="url"
+                placeholder="https://www.linkedin.com/in/..."
+                value={linkedinUrl}
+                onChange={(e) =>
+                  setLinkedinUrl(e.target.value)
+                }
+              />
+            </label>
+
+            {/* XING */}
+
+            <label>
+              XING Display Text
+
+              <input
+                value={xing}
+                onChange={(e) =>
+                  setXing(e.target.value)
+                }
+              />
+            </label>
+
+            <label>
+              XING URL
+
+              <input
+                type="url"
+                placeholder="https://www.xing.com/profile/..."
+                value={xingUrl}
+                onChange={(e) =>
+                  setXingUrl(e.target.value)
+                }
+              />
+            </label>
+
+            {/* GITHUB */}
+
+            <label>
+              GitHub Display Text
+
+              <input
+                value={github}
+                onChange={(e) =>
+                  setGithub(e.target.value)
+                }
+              />
+            </label>
+
+            <label>
+              GitHub URL
+
+              <input
+                type="url"
+                placeholder="https://github.com/..."
+                value={githubUrl}
+                onChange={(e) =>
+                  setGithubUrl(e.target.value)
+                }
+              />
+            </label>
+
+            {/* PHOTO */}
 
             <label>
               Profile Photo
@@ -678,9 +799,7 @@ function App() {
 
             <h2>Professional Skills</h2>
 
-            <button
-              onClick={addSkillCategory}
-            >
+            <button onClick={addSkillCategory}>
               + Add
             </button>
 
@@ -781,9 +900,7 @@ function App() {
 
             <h2>Work Experience</h2>
 
-            <button
-              onClick={addExperience}
-            >
+            <button onClick={addExperience}>
               + Add Experience
             </button>
 
@@ -834,9 +951,7 @@ function App() {
                     Position
 
                     <input
-                      value={
-                        experience.position
-                      }
+                      value={experience.position}
                       onChange={(e) =>
                         updateExperience(
                           index,
@@ -851,9 +966,7 @@ function App() {
                     Company
 
                     <input
-                      value={
-                        experience.company
-                      }
+                      value={experience.company}
                       onChange={(e) =>
                         updateExperience(
                           index,
@@ -868,9 +981,7 @@ function App() {
                     Dates
 
                     <input
-                      value={
-                        experience.dates
-                      }
+                      value={experience.dates}
                       onChange={(e) =>
                         updateExperience(
                           index,
@@ -889,11 +1000,9 @@ function App() {
                     </span>
 
                     <textarea
-                      value={
-                        experience.description.join(
-                          '\n'
-                        )
-                      }
+                      value={experience.description.join(
+                        '\n'
+                      )}
                       onChange={(e) =>
                         updateExperience(
                           index,
@@ -933,9 +1042,7 @@ function App() {
 
             <h2>Education</h2>
 
-            <button
-              onClick={addEducation}
-            >
+            <button onClick={addEducation}>
               + Add Education
             </button>
 
@@ -986,9 +1093,7 @@ function App() {
                     Degree
 
                     <input
-                      value={
-                        education.degree
-                      }
+                      value={education.degree}
                       onChange={(e) =>
                         updateEducation(
                           index,
@@ -1020,9 +1125,7 @@ function App() {
                     Dates
 
                     <input
-                      value={
-                        education.dates
-                      }
+                      value={education.dates}
                       onChange={(e) =>
                         updateEducation(
                           index,
@@ -1076,9 +1179,7 @@ function App() {
 
             <h2>Certifications</h2>
 
-            <button
-              onClick={addCertification}
-            >
+            <button onClick={addCertification}>
               + Add Certification
             </button>
 
@@ -1108,6 +1209,12 @@ function App() {
                           'New Certification'}
                       </strong>
 
+                      {certification.url && (
+                        <span>
+                          Link added
+                        </span>
+                      )}
+
                     </div>
 
                   </div>
@@ -1126,6 +1233,31 @@ function App() {
                       onChange={(e) =>
                         updateCertification(
                           index,
+                          'name',
+                          e.target.value
+                        )
+                      }
+                    />
+                  </label>
+
+                  <label>
+                    Certification Link
+
+                    <span className="helper-text">
+                      Optional. Enter the webpage for
+                      this certification.
+                    </span>
+
+                    <input
+                      type="url"
+                      placeholder="https://..."
+                      value={
+                        certification.url
+                      }
+                      onChange={(e) =>
+                        updateCertification(
+                          index,
+                          'url',
                           e.target.value
                         )
                       }
@@ -1160,9 +1292,7 @@ function App() {
 
             <h2>Languages</h2>
 
-            <button
-              onClick={addLanguage}
-            >
+            <button onClick={addLanguage}>
               + Add Language
             </button>
 
@@ -1262,12 +1392,34 @@ function App() {
 
           <div className="editor-card">
 
-            <input
-              value={publication}
-              onChange={(e) =>
-                setPublication(e.target.value)
-              }
-            />
+            <label>
+              Publication
+
+              <input
+                value={publication}
+                onChange={(e) =>
+                  setPublication(e.target.value)
+                }
+              />
+            </label>
+
+            <label>
+              Publication Link
+
+              <span className="helper-text">
+                Optional. Enter the webpage, DOI or
+                publication URL.
+              </span>
+
+              <input
+                type="url"
+                placeholder="https://..."
+                value={publicationUrl}
+                onChange={(e) =>
+                  setPublicationUrl(e.target.value)
+                }
+              />
+            </label>
 
           </div>
 
@@ -1383,9 +1535,63 @@ function App() {
                   {email}
                 </div>
 
-                <div className="contact-row">
-                  {linkedin}
-                </div>
+                {linkedin && (
+                  <div className="contact-row">
+
+                    {linkedinUrl ? (
+                      <a
+                        href={getSafeUrl(
+                          linkedinUrl
+                        )}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {linkedin}
+                      </a>
+                    ) : (
+                      linkedin
+                    )}
+
+                  </div>
+                )}
+
+                {xing && (
+                  <div className="contact-row">
+
+                    {xingUrl ? (
+                      <a
+                        href={getSafeUrl(xingUrl)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {xing}
+                      </a>
+                    ) : (
+                      xing
+                    )}
+
+                  </div>
+                )}
+
+                {github && (
+                  <div className="contact-row">
+
+                    {githubUrl ? (
+                      <a
+                        href={getSafeUrl(
+                          githubUrl
+                        )}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {github}
+                      </a>
+                    ) : (
+                      github
+                    )}
+
+                  </div>
+                )}
 
                 <div className="contact-row">
                   {drivingLicence}
@@ -1453,7 +1659,25 @@ function App() {
                       className="sidebar-entry"
                       key={index}
                     >
-                      {certification.name}
+
+                      {certification.url ? (
+
+                        <a
+                          href={getSafeUrl(
+                            certification.url
+                          )}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {certification.name}
+                        </a>
+
+                      ) : (
+
+                        certification.name
+
+                      )}
+
                     </div>
 
                   )
@@ -1496,9 +1720,27 @@ function App() {
 
                 <h2>PUBLICATION</h2>
 
-                <p>
-                  {publication}
-                </p>
+                {publicationUrl ? (
+
+                  <p>
+                    <a
+                      href={getSafeUrl(
+                        publicationUrl
+                      )}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {publication}
+                    </a>
+                  </p>
+
+                ) : (
+
+                  <p>
+                    {publication}
+                  </p>
+
+                )}
 
               </section>
 

@@ -23,7 +23,6 @@ textarea {
   font-family: inherit;
 }
 
-
 /* =====================================================
    APPLICATION
    ===================================================== */
@@ -37,7 +36,6 @@ textarea {
 
   overflow: hidden;
 }
-
 
 /* =====================================================
    EDITOR
@@ -100,7 +98,6 @@ textarea {
   background: #00427c;
 }
 
-
 /* =====================================================
    EDITOR SECTIONS
    ===================================================== */
@@ -157,7 +154,6 @@ textarea {
 .section-title-row button:hover {
   background: #00427c;
 }
-
 
 /* =====================================================
    EDITOR CARD
@@ -239,7 +235,6 @@ textarea {
 .profile-editor {
   min-height: 130px !important;
 }
-
 
 /* =====================================================
    COLLAPSIBLE EDITOR ITEMS
@@ -389,7 +384,6 @@ textarea {
   font-weight: 400;
 }
 
-
 /* =====================================================
    DELETE BUTTON
    ===================================================== */
@@ -416,7 +410,6 @@ textarea {
   background: #8f1d18;
 }
 
-
 /* =====================================================
    PREVIEW
    ===================================================== */
@@ -430,7 +423,6 @@ textarea {
 
   background: #e9edf2;
 }
-
 
 /* =====================================================
    CV
@@ -447,7 +439,6 @@ textarea {
 
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
 }
-
 
 /* =====================================================
    CV HEADER
@@ -503,7 +494,6 @@ textarea {
 
   font-size: 12px;
 }
-
 
 /* =====================================================
    CV HEADER RIGHT
@@ -572,7 +562,6 @@ textarea {
   background: #ffffff;
 }
 
-
 /* =====================================================
    CV BODY
    ===================================================== */
@@ -584,7 +573,6 @@ textarea {
 
   width: 100%;
 }
-
 
 /* =====================================================
    SIDEBAR
@@ -602,21 +590,6 @@ textarea {
   text-align: left;
 }
 
-
-/*
- * IMPORTANT:
- * Keep each sidebar section together.
- *
- * This prevents:
- *
- * HOBBIES
- * --------
- * from appearing at the bottom of page 1
- * while
- * Badminton...
- * appears at the top of page 2.
- */
-
 .sidebar-section {
   width: 100%;
 
@@ -628,12 +601,6 @@ textarea {
   break-inside: avoid !important;
   page-break-inside: avoid !important;
 }
-
-
-/*
- * Prevent section headings from being separated
- * from their content.
- */
 
 .sidebar-section h2 {
   width: 100%;
@@ -656,7 +623,6 @@ textarea {
   break-after: avoid !important;
   page-break-after: avoid !important;
 }
-
 
 /* =====================================================
    CONTACT
@@ -684,9 +650,32 @@ textarea {
   margin-bottom: 0;
 }
 
+/* =====================================================
+   HYPERLINKS
+   ===================================================== */
+
+.contact-row a,
+.sidebar-entry a,
+.sidebar-section p a {
+  color: inherit;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  word-break: break-word;
+}
+
+.contact-row a:hover,
+.sidebar-entry a:hover,
+.sidebar-section p a:hover {
+  color: #0058a4;
+
+  text-decoration: underline;
+}
 
 /* =====================================================
-   EDUCATION / CERTIFICATION SIDEBAR ENTRIES
+   SIDEBAR ENTRIES
    ===================================================== */
 
 .sidebar-entry {
@@ -725,7 +714,6 @@ textarea {
   display: block;
 }
 
-
 /* =====================================================
    LANGUAGES
    ===================================================== */
@@ -763,7 +751,6 @@ textarea {
   page-break-inside: avoid !important;
 }
 
-
 /* =====================================================
    MAIN CONTENT
    ===================================================== */
@@ -779,7 +766,6 @@ textarea {
 
   text-align: left;
 }
-
 
 /* =====================================================
    CV SECTIONS
@@ -823,7 +809,6 @@ textarea {
 
   text-align: left;
 }
-
 
 /* =====================================================
    PROFESSIONAL SKILLS
@@ -870,7 +855,6 @@ textarea {
 
   min-width: 0;
 }
-
 
 /* =====================================================
    WORK EXPERIENCE
@@ -946,7 +930,6 @@ textarea {
   white-space: nowrap;
 }
 
-
 /* =====================================================
    EXPERIENCE BULLETS
    ===================================================== */
@@ -1014,7 +997,6 @@ textarea {
   text-align: left;
 }
 
-
 /* =====================================================
    PDF / PRINT
    ===================================================== */
@@ -1062,10 +1044,6 @@ textarea {
     box-shadow: none;
   }
 
-  /*
-   * Sidebar sections must not be split.
-   */
-
   .sidebar-section {
     break-inside: avoid !important;
     page-break-inside: avoid !important;
@@ -1082,10 +1060,6 @@ textarea {
     break-inside: avoid !important;
     page-break-inside: avoid !important;
   }
-
-  /*
-   * Main CV sections.
-   */
 
   .cv-section {
     break-inside: auto;
@@ -1105,8 +1079,17 @@ textarea {
     break-inside: avoid !important;
     page-break-inside: avoid !important;
   }
-}
 
+  /*
+   * Keep hyperlinks visually clean in the PDF.
+   */
+
+  a {
+    color: inherit !important;
+
+    text-decoration: none !important;
+  }
+}
 
 /* =====================================================
    RESPONSIVE
@@ -1122,7 +1105,6 @@ textarea {
     padding: 20px;
   }
 }
-
 
 @media (max-width: 900px) {
 
