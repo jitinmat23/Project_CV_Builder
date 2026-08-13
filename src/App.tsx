@@ -1,5 +1,7 @@
 import './App.css'
+
 import { CVProvider } from './context/CVContext'
+
 import CVEditor from './components/editor/CVEditor'
 import CVPreview from './components/preview/CVPreview'
 
