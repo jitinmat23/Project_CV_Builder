@@ -43,7 +43,11 @@ type CVContextValue = {
   updateProfile: (value: string) => void
   updateSkills: (skills: SkillCategory[]) => void
   updateExperiences: (experiences: Experience[]) => void
+  moveExperienceUp: (index: number) => void
+  moveExperienceDown: (index: number) => void
   updateEducations: (educations: Education[]) => void
+  moveEducationUp: (index: number) => void
+  moveEducationDown: (index: number) => void
   updateCertifications: (certifications: Certification[]) => void
   updateLanguages: (languages: Language[]) => void
 
@@ -306,6 +310,42 @@ export function CVProvider({
     }))
   }
 
+  function moveExperienceUp(index: number) {
+    if (
+      index <= 0 ||
+      index >= cv.experiences.length
+    ) {
+      return
+    }
+
+    const experiences = [...cv.experiences]
+
+    ;[experiences[index - 1], experiences[index]] = [
+      experiences[index],
+      experiences[index - 1],
+    ]
+
+    updateExperiences(experiences)
+  }
+
+  function moveExperienceDown(index: number) {
+    if (
+      index < 0 ||
+      index >= cv.experiences.length - 1
+    ) {
+      return
+    }
+
+    const experiences = [...cv.experiences]
+
+    ;[experiences[index], experiences[index + 1]] = [
+      experiences[index + 1],
+      experiences[index],
+    ]
+
+    updateExperiences(experiences)
+  }
+
   function updateEducations(
     educations: Education[]
   ) {
@@ -313,6 +353,42 @@ export function CVProvider({
       ...current,
       educations,
     }))
+  }
+
+  function moveEducationUp(index: number) {
+    if (
+      index <= 0 ||
+      index >= cv.educations.length
+    ) {
+      return
+    }
+
+    const educations = [...cv.educations]
+
+    ;[educations[index - 1], educations[index]] = [
+      educations[index],
+      educations[index - 1],
+    ]
+
+    updateEducations(educations)
+  }
+
+  function moveEducationDown(index: number) {
+    if (
+      index < 0 ||
+      index >= cv.educations.length - 1
+    ) {
+      return
+    }
+
+    const educations = [...cv.educations]
+
+    ;[educations[index], educations[index + 1]] = [
+      educations[index + 1],
+      educations[index],
+    ]
+
+    updateEducations(educations)
   }
 
   function updateCertifications(
@@ -578,7 +654,11 @@ export function CVProvider({
         updateProfile,
         updateSkills,
         updateExperiences,
+        moveExperienceUp,
+        moveExperienceDown,
         updateEducations,
+        moveEducationUp,
+        moveEducationDown,
         updateCertifications,
         updateLanguages,
         updatePublication,
