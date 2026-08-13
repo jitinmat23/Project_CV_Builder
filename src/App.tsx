@@ -32,10 +32,6 @@ type SkillCategory = {
 }
 
 function App() {
-  /* =====================================================
-     PERSONAL INFORMATION
-     ===================================================== */
-
   const [name, setName] = useState('Jitin Mathew Thomas')
   const [jobTitle, setJobTitle] = useState('Software Test Engineer')
   const [email, setEmail] = useState('jitinmat23@gmail.com')
@@ -59,9 +55,7 @@ function App() {
     'https://www.xing.com/'
   )
 
-  const [github, setGithub] = useState(
-    'github.com/jitinmathew'
-  )
+  const [github, setGithub] = useState('github.com/jitinmathew')
 
   const [githubUrl, setGithubUrl] = useState(
     'https://github.com/jitinmathew'
@@ -72,10 +66,6 @@ function App() {
   const [profile, setProfile] = useState(
     'Software Test Engineer with over 4 years’ experience in test automation, system testing and test strategy development. Experience in process optimisation and team leadership.'
   )
-
-  /* =====================================================
-     SKILLS
-     ===================================================== */
 
   const [skillCategories, setSkillCategories] =
     useState<SkillCategory[]>([
@@ -111,10 +101,6 @@ function App() {
         skills: 'Microsoft Office, LaTeX, Power BI',
       },
     ])
-
-  /* =====================================================
-     WORK EXPERIENCE
-     ===================================================== */
 
   const [experiences, setExperiences] =
     useState<Experience[]>([
@@ -178,10 +164,6 @@ function App() {
       },
     ])
 
-  /* =====================================================
-     EDUCATION
-     ===================================================== */
-
   const [educations, setEducations] =
     useState<Education[]>([
       {
@@ -199,10 +181,6 @@ function App() {
         grade: '1.7',
       },
     ])
-
-  /* =====================================================
-     CERTIFICATIONS
-     ===================================================== */
 
   const [certifications, setCertifications] =
     useState<Certification[]>([
@@ -232,10 +210,6 @@ function App() {
       },
     ])
 
-  /* =====================================================
-     LANGUAGES
-     ===================================================== */
-
   const [languages, setLanguages] =
     useState<Language[]>([
       {
@@ -256,10 +230,6 @@ function App() {
       },
     ])
 
-  /* =====================================================
-     OTHER
-     ===================================================== */
-
   const [publication, setPublication] =
     useState('IEEE VPPC Conference, 2021')
 
@@ -272,7 +242,27 @@ function App() {
   const cvRef = useRef<HTMLDivElement>(null)
 
   /* =====================================================
-     PHOTO UPLOAD
+     URL HELPER
+     ===================================================== */
+
+  function getSafeUrl(url: string) {
+    const trimmed = url.trim()
+
+    if (!trimmed) return ''
+
+    if (
+      trimmed.startsWith('https://') ||
+      trimmed.startsWith('http://') ||
+      trimmed.startsWith('mailto:')
+    ) {
+      return trimmed
+    }
+
+    return `https://${trimmed}`
+  }
+
+  /* =====================================================
+     PHOTO
      ===================================================== */
 
   function handlePhotoUpload(
@@ -292,29 +282,7 @@ function App() {
   }
 
   /* =====================================================
-     HELPER
-     ===================================================== */
-
-  function getSafeUrl(url: string) {
-    const trimmedUrl = url.trim()
-
-    if (!trimmedUrl) {
-      return ''
-    }
-
-    if (
-      trimmedUrl.startsWith('https://') ||
-      trimmedUrl.startsWith('http://') ||
-      trimmedUrl.startsWith('mailto:')
-    ) {
-      return trimmedUrl
-    }
-
-    return `https://${trimmedUrl}`
-  }
-
-  /* =====================================================
-     SKILLS FUNCTIONS
+     SKILLS
      ===================================================== */
 
   function addSkillCategory() {
@@ -349,7 +317,7 @@ function App() {
   }
 
   /* =====================================================
-     EXPERIENCE FUNCTIONS
+     EXPERIENCE
      ===================================================== */
 
   function addExperience() {
@@ -390,7 +358,7 @@ function App() {
   }
 
   /* =====================================================
-     EDUCATION FUNCTIONS
+     EDUCATION
      ===================================================== */
 
   function addEducation() {
@@ -427,7 +395,7 @@ function App() {
   }
 
   /* =====================================================
-     CERTIFICATION FUNCTIONS
+     CERTIFICATIONS
      ===================================================== */
 
   function addCertification() {
@@ -462,7 +430,7 @@ function App() {
   }
 
   /* =====================================================
-     LANGUAGE FUNCTIONS
+     LANGUAGES
      ===================================================== */
 
   function addLanguage() {
@@ -497,7 +465,11 @@ function App() {
   }
 
   /* =====================================================
-     PDF DOWNLOAD
+     PDF
+     
+     IMPORTANT:
+     Experience entries are ALLOWED to split.
+     Individual bullets are NOT allowed to split.
      ===================================================== */
 
   function downloadPDF() {
@@ -522,6 +494,8 @@ function App() {
         allowTaint: true,
         backgroundColor: '#ffffff',
         logging: false,
+        scrollX: 0,
+        scrollY: 0,
       },
 
       jsPDF: {
@@ -533,6 +507,13 @@ function App() {
 
       pagebreak: {
         mode: ['css', 'legacy'],
+        avoid: [
+          '.experience-bullet',
+          '.sidebar-section',
+          '.sidebar-entry',
+          '.language-row',
+          '.skill-category',
+        ],
       },
     }
 
@@ -542,15 +523,11 @@ function App() {
       .save()
   }
 
-  /* =====================================================
-     RENDER
-     ===================================================== */
-
   return (
     <div className="app">
 
       {/* =================================================
-          LEFT EDITOR
+          EDITOR
           ================================================= */}
 
       <div className="editor">
@@ -573,21 +550,16 @@ function App() {
 
         </div>
 
-        {/* =================================================
-            PERSONAL INFORMATION
-            ================================================= */}
+        {/* PERSONAL INFORMATION */}
 
         <section className="editor-section">
 
-          <div className="editor-section-heading">
-            <h2>Personal Information</h2>
-          </div>
+          <h2>Personal Information</h2>
 
           <div className="editor-card personal-card">
 
             <label>
               Full Name
-
               <input
                 value={name}
                 onChange={(e) =>
@@ -598,7 +570,6 @@ function App() {
 
             <label>
               Job Title
-
               <input
                 value={jobTitle}
                 onChange={(e) =>
@@ -609,7 +580,6 @@ function App() {
 
             <label>
               Email
-
               <input
                 value={email}
                 onChange={(e) =>
@@ -620,7 +590,6 @@ function App() {
 
             <label>
               Phone
-
               <input
                 value={phone}
                 onChange={(e) =>
@@ -631,7 +600,6 @@ function App() {
 
             <label>
               Location
-
               <input
                 value={location}
                 onChange={(e) =>
@@ -642,7 +610,6 @@ function App() {
 
             <label>
               Nationality
-
               <input
                 value={nationality}
                 onChange={(e) =>
@@ -653,7 +620,6 @@ function App() {
 
             <label>
               Driving Licence
-
               <input
                 value={drivingLicence}
                 onChange={(e) =>
@@ -664,7 +630,6 @@ function App() {
 
             <label>
               Date / Place of Birth
-
               <input
                 value={birthday}
                 onChange={(e) =>
@@ -673,11 +638,8 @@ function App() {
               />
             </label>
 
-            {/* LINKEDIN */}
-
             <label>
               LinkedIn Display Text
-
               <input
                 value={linkedin}
                 onChange={(e) =>
@@ -688,10 +650,9 @@ function App() {
 
             <label>
               LinkedIn URL
-
               <input
                 type="url"
-                placeholder="https://www.linkedin.com/in/..."
+                placeholder="https://linkedin.com/in/..."
                 value={linkedinUrl}
                 onChange={(e) =>
                   setLinkedinUrl(e.target.value)
@@ -699,11 +660,8 @@ function App() {
               />
             </label>
 
-            {/* XING */}
-
             <label>
               XING Display Text
-
               <input
                 value={xing}
                 onChange={(e) =>
@@ -714,10 +672,9 @@ function App() {
 
             <label>
               XING URL
-
               <input
                 type="url"
-                placeholder="https://www.xing.com/profile/..."
+                placeholder="https://xing.com/..."
                 value={xingUrl}
                 onChange={(e) =>
                   setXingUrl(e.target.value)
@@ -725,11 +682,8 @@ function App() {
               />
             </label>
 
-            {/* GITHUB */}
-
             <label>
               GitHub Display Text
-
               <input
                 value={github}
                 onChange={(e) =>
@@ -740,7 +694,6 @@ function App() {
 
             <label>
               GitHub URL
-
               <input
                 type="url"
                 placeholder="https://github.com/..."
@@ -751,11 +704,8 @@ function App() {
               />
             </label>
 
-            {/* PHOTO */}
-
             <label>
               Profile Photo
-
               <input
                 type="file"
                 accept="image/*"
@@ -767,9 +717,7 @@ function App() {
 
         </section>
 
-        {/* =================================================
-            PROFILE
-            ================================================= */}
+        {/* PROFILE */}
 
         <section className="editor-section">
 
@@ -789,9 +737,7 @@ function App() {
 
         </section>
 
-        {/* =================================================
-            PROFESSIONAL SKILLS
-            ================================================= */}
+        {/* SKILLS */}
 
         <section className="editor-section">
 
@@ -890,9 +836,7 @@ function App() {
 
         </section>
 
-        {/* =================================================
-            WORK EXPERIENCE
-            ================================================= */}
+        {/* EXPERIENCE */}
 
         <section className="editor-section">
 
@@ -1032,9 +976,7 @@ function App() {
 
         </section>
 
-        {/* =================================================
-            EDUCATION
-            ================================================= */}
+        {/* EDUCATION */}
 
         <section className="editor-section">
 
@@ -1108,9 +1050,7 @@ function App() {
                     Institution
 
                     <input
-                      value={
-                        education.institution
-                      }
+                      value={education.institution}
                       onChange={(e) =>
                         updateEducation(
                           index,
@@ -1169,9 +1109,7 @@ function App() {
 
         </section>
 
-        {/* =================================================
-            CERTIFICATIONS
-            ================================================= */}
+        {/* CERTIFICATIONS */}
 
         <section className="editor-section">
 
@@ -1209,12 +1147,6 @@ function App() {
                           'New Certification'}
                       </strong>
 
-                      {certification.url && (
-                        <span>
-                          Link added
-                        </span>
-                      )}
-
                     </div>
 
                   </div>
@@ -1227,9 +1159,7 @@ function App() {
                     Certification
 
                     <input
-                      value={
-                        certification.name
-                      }
+                      value={certification.name}
                       onChange={(e) =>
                         updateCertification(
                           index,
@@ -1244,16 +1174,14 @@ function App() {
                     Certification Link
 
                     <span className="helper-text">
-                      Optional. Enter the webpage for
-                      this certification.
+                      Optional. Enter the certification
+                      webpage.
                     </span>
 
                     <input
                       type="url"
                       placeholder="https://..."
-                      value={
-                        certification.url
-                      }
+                      value={certification.url}
                       onChange={(e) =>
                         updateCertification(
                           index,
@@ -1282,9 +1210,7 @@ function App() {
 
         </section>
 
-        {/* =================================================
-            LANGUAGES
-            ================================================= */}
+        {/* LANGUAGES */}
 
         <section className="editor-section">
 
@@ -1382,9 +1308,7 @@ function App() {
 
         </section>
 
-        {/* =================================================
-            PUBLICATION
-            ================================================= */}
+        {/* PUBLICATION */}
 
         <section className="editor-section">
 
@@ -1407,8 +1331,7 @@ function App() {
               Publication Link
 
               <span className="helper-text">
-                Optional. Enter the webpage, DOI or
-                publication URL.
+                Optional. Enter webpage, DOI or URL.
               </span>
 
               <input
@@ -1425,9 +1348,7 @@ function App() {
 
         </section>
 
-        {/* =================================================
-            HOBBIES
-            ================================================= */}
+        {/* HOBBIES */}
 
         <section className="editor-section">
 
@@ -1449,7 +1370,7 @@ function App() {
       </div>
 
       {/* =================================================
-          RIGHT CV PREVIEW
+          PREVIEW
           ================================================= */}
 
       <div className="preview">
@@ -1459,9 +1380,7 @@ function App() {
           ref={cvRef}
         >
 
-          {/* =================================================
-              HEADER
-              ================================================= */}
+          {/* HEADER */}
 
           <div className="cv-top">
 
@@ -1489,15 +1408,11 @@ function App() {
 
               <div className="cv-header-content">
 
-                <h1>
-                  {name}
-                </h1>
+                <h1>{name}</h1>
 
                 <div className="header-rule"></div>
 
-                <h3>
-                  {jobTitle}
-                </h3>
+                <h3>{jobTitle}</h3>
 
               </div>
 
@@ -1505,19 +1420,13 @@ function App() {
 
           </div>
 
-          {/* =================================================
-              CV BODY
-              ================================================= */}
+          {/* BODY */}
 
           <div className="cv-content">
 
-            {/* =================================================
-                SIDEBAR
-                ================================================= */}
+            {/* SIDEBAR */}
 
             <aside className="cv-sidebar">
-
-              {/* CONTACT */}
 
               <section className="sidebar-section">
 
@@ -1540,9 +1449,7 @@ function App() {
 
                     {linkedinUrl ? (
                       <a
-                        href={getSafeUrl(
-                          linkedinUrl
-                        )}
+                        href={getSafeUrl(linkedinUrl)}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -1578,9 +1485,7 @@ function App() {
 
                     {githubUrl ? (
                       <a
-                        href={getSafeUrl(
-                          githubUrl
-                        )}
+                        href={getSafeUrl(githubUrl)}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -1606,8 +1511,6 @@ function App() {
                 </div>
 
               </section>
-
-              {/* EDUCATION */}
 
               <section className="sidebar-section">
 
@@ -1644,13 +1547,9 @@ function App() {
 
               </section>
 
-              {/* ADVANCED TRAINING */}
-
               <section className="sidebar-section">
 
-                <h2>
-                  ADVANCED TRAINING
-                </h2>
+                <h2>ADVANCED TRAINING</h2>
 
                 {certifications.map(
                   (certification, index) => (
@@ -1673,9 +1572,7 @@ function App() {
                         </a>
 
                       ) : (
-
                         certification.name
-
                       )}
 
                     </div>
@@ -1684,8 +1581,6 @@ function App() {
                 )}
 
               </section>
-
-              {/* LANGUAGES */}
 
               <section className="sidebar-section">
 
@@ -1714,8 +1609,6 @@ function App() {
 
               </section>
 
-              {/* PUBLICATION */}
-
               <section className="sidebar-section">
 
                 <h2>PUBLICATION</h2>
@@ -1736,47 +1629,33 @@ function App() {
 
                 ) : (
 
-                  <p>
-                    {publication}
-                  </p>
+                  <p>{publication}</p>
 
                 )}
 
               </section>
 
-              {/* HOBBIES */}
-
               <section className="sidebar-section">
 
                 <h2>HOBBIES</h2>
 
-                <p>
-                  {hobbies}
-                </p>
+                <p>{hobbies}</p>
 
               </section>
 
             </aside>
 
-            {/* =================================================
-                MAIN CONTENT
-                ================================================= */}
+            {/* MAIN */}
 
             <main className="cv-main">
-
-              {/* PROFILE */}
 
               <section className="cv-section">
 
                 <h2>PROFILE</h2>
 
-                <p>
-                  {profile}
-                </p>
+                <p>{profile}</p>
 
               </section>
-
-              {/* SKILLS */}
 
               <section className="cv-section">
 
@@ -1810,8 +1689,6 @@ function App() {
                 </div>
 
               </section>
-
-              {/* WORK EXPERIENCE */}
 
               <section className="cv-section">
 
