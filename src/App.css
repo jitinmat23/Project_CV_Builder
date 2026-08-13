@@ -6,7 +6,7 @@ html,
 body,
 #root {
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   margin: 0;
   padding: 0;
 }
@@ -23,32 +23,19 @@ textarea {
   font-family: inherit;
 }
 
-/* =====================================================
-   APPLICATION
-   ===================================================== */
-
 .app {
   display: grid;
   grid-template-columns: 430px minmax(0, 1fr);
-
   width: 100%;
   height: 100vh;
-
   overflow: hidden;
 }
-
-/* =====================================================
-   EDITOR
-   ===================================================== */
 
 .editor {
   height: 100vh;
   overflow-y: auto;
-
   padding: 28px;
-
-  background: #ffffff;
-
+  background: #fff;
   border-right: 1px solid #d5d9de;
 }
 
@@ -59,36 +46,26 @@ textarea {
 
 .editor-header h1 {
   margin: 0;
-
   color: #0058a4;
-
   font-size: 34px;
   line-height: 1.2;
 }
 
 .editor-header p {
   margin: 10px 0 20px;
-
   color: #777;
-
   line-height: 1.5;
 }
 
 .download-button {
   width: 100%;
-
   padding: 14px;
-
-  border: none;
+  border: 0;
   border-radius: 7px;
-
   background: #0058a4;
-
-  color: #ffffff;
-
+  color: #fff;
   font-size: 17px;
   font-weight: 700;
-
   cursor: pointer;
 }
 
@@ -96,68 +73,34 @@ textarea {
   background: #00427c;
 }
 
-/* =====================================================
-   EDITOR SECTIONS
-   ===================================================== */
-
 .editor-section {
   margin-bottom: 32px;
 }
 
-.editor-section > h2,
-.editor-section-heading h2 {
-  margin: 0 0 15px;
-
-  color: #333;
-
-  font-size: 21px;
-  line-height: 1.3;
-}
-
 .section-title-row {
   display: flex;
-
   align-items: center;
   justify-content: space-between;
-
   gap: 12px;
-
   margin-bottom: 15px;
 }
 
-.section-title-row h2 {
+.section-title-row h2,
+.editor-section > .section-title-row h2 {
   margin: 0;
+  color: #333;
   font-size: 21px;
 }
 
-.section-title-row button {
-  flex-shrink: 0;
-
-  padding: 8px 12px;
-
-  border: none;
-  border-radius: 5px;
-
-  background: #0058a4;
-
-  color: #ffffff;
-
-  font-size: 13px;
-  font-weight: 700;
-
-  cursor: pointer;
+.section-action-label {
+  color: #777;
+  font-size: 12px;
 }
-
-/* =====================================================
-   EDITOR CARDS
-   ===================================================== */
 
 .editor-card {
   padding: 16px;
-
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
   border-radius: 8px;
-
   background: #fafafa;
 }
 
@@ -165,11 +108,8 @@ textarea {
 .personal-card label,
 .item-body label {
   display: block;
-
   margin-bottom: 14px;
-
   color: #333;
-
   font-size: 13px;
   font-weight: 700;
 }
@@ -187,20 +127,13 @@ textarea {
 .item-body input,
 .item-body textarea {
   display: block;
-
   width: 100%;
-
   margin-top: 6px;
-
   padding: 10px 11px;
-
   border: 1px solid #d0d0d0;
   border-radius: 5px;
-
-  background: #ffffff;
-
+  background: #fff;
   color: #333;
-
   font-size: 13px;
   line-height: 1.4;
 }
@@ -212,9 +145,7 @@ textarea {
 .item-body input:focus,
 .item-body textarea:focus {
   outline: none;
-
   border-color: #0058a4;
-
   box-shadow: 0 0 0 2px rgba(0, 88, 164, 0.1);
 }
 
@@ -228,30 +159,19 @@ textarea {
   min-height: 130px !important;
 }
 
-/* =====================================================
-   EDITOR ITEMS
-   ===================================================== */
-
 .editor-item {
   margin-bottom: 10px;
-
   border: 1px solid #d8dce1;
   border-radius: 8px;
-
-  background: #ffffff;
-
+  background: #fff;
   overflow: hidden;
 }
 
 .editor-item summary {
   display: block;
-
   padding: 13px 14px;
-
   cursor: pointer;
-
   list-style: none;
-
   background: #f7f8fa;
 }
 
@@ -261,11 +181,8 @@ textarea {
 
 .editor-item summary::after {
   content: '＋';
-
   float: right;
-
   color: #0058a4;
-
   font-size: 17px;
   font-weight: 700;
 }
@@ -276,216 +193,161 @@ textarea {
 
 .item-summary {
   display: flex;
-
   align-items: center;
-
   gap: 10px;
-
   min-width: 0;
-
   padding-right: 20px;
 }
 
 .item-number {
   display: flex;
-
   align-items: center;
   justify-content: center;
-
   flex: 0 0 27px;
-
   width: 27px;
   height: 27px;
-
   border-radius: 50%;
-
   background: #0058a4;
-
-  color: #ffffff;
-
+  color: #fff;
   font-size: 12px;
   font-weight: 700;
 }
 
 .item-summary > div {
   display: flex;
-
   flex-direction: column;
-
   min-width: 0;
 }
 
 .item-summary strong {
   overflow: hidden;
-
   color: #333;
-
   font-size: 13px;
-  font-weight: 700;
   line-height: 1.35;
-
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .item-summary span:not(.item-number) {
   overflow: hidden;
-
   margin-top: 2px;
-
   color: #666;
-
   font-size: 12px;
-  line-height: 1.3;
-
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .item-summary small {
   margin-top: 2px;
-
   color: #0058a4;
-
   font-size: 11px;
   font-weight: 700;
 }
 
 .item-body {
   padding: 16px;
-
   border-top: 1px solid #e2e4e7;
-
-  background: #ffffff;
 }
 
 .helper-text {
   display: block;
-
   margin-top: 4px;
-
   color: #777;
-
   font-size: 11px;
   font-weight: 400;
 }
 
 .delete-button {
   margin-top: 5px;
-
   padding: 8px 11px;
-
-  border: none;
+  border: 0;
   border-radius: 5px;
-
   background: #b3261e;
-
-  color: #ffffff;
-
+  color: #fff;
   font-size: 12px;
   font-weight: 700;
-
   cursor: pointer;
 }
 
-/* =====================================================
-   PREVIEW
-   ===================================================== */
+.add-section-button {
+  width: 100%;
+  margin-top: 8px;
+  padding: 10px;
+  border: 1px dashed #0058a4;
+  border-radius: 6px;
+  background: #fff;
+  color: #0058a4;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.add-section-button:hover {
+  background: #f2f7fb;
+}
 
 .preview {
   height: 100vh;
-
   overflow: auto;
-
   padding: 35px;
-
   background: #e9edf2;
 }
 
 .cv {
   width: 190mm;
-
   min-height: 281mm;
-
   margin: 0 auto;
-
-  background: #ffffff;
-
+  background: #fff;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
 }
 
-/* =====================================================
-   HEADER
-   ===================================================== */
-
 .cv-top {
   display: flex;
-
   width: 100%;
   min-height: 48mm;
-
   break-inside: avoid;
   page-break-inside: avoid;
 }
 
 .cv-photo-column {
   display: flex;
-
   align-items: center;
   justify-content: center;
-
   flex: 0 0 31%;
-
   width: 31%;
   height: 48mm;
-
   overflow: hidden;
-
   background: #f3f3f3;
 }
 
 .cv-profile-photo {
   display: block;
-
   width: 100%;
   height: 100%;
-
   object-fit: cover;
 }
 
 .cv-photo-placeholder {
   display: flex;
-
   align-items: center;
   justify-content: center;
-
   width: 100%;
   height: 100%;
-
-  background: #eeeeee;
-
+  background: #eee;
   color: #888;
-
   font-size: 12px;
 }
 
 .cv-header {
   display: flex;
-
   align-items: center;
   justify-content: center;
-
   flex: 0 0 69%;
-
   width: 69%;
   min-height: 48mm;
-
   padding: 8mm;
-
   background: #464646;
-
-  color: #ffffff;
-
+  color: #fff;
   text-align: center;
 }
 
@@ -496,141 +358,97 @@ textarea {
 
 .cv-header h1 {
   width: 100%;
-
   margin: 0;
-
-  color: #ffffff;
-
+  color: #fff;
   font-size: 27px;
   line-height: 1.15;
   font-weight: 700;
-
   text-align: center;
 }
 
 .cv-header h3 {
   width: 100%;
-
   margin: 8px 0 0;
-
-  color: #ffffff;
-
+  color: #fff;
   font-size: 14px;
   line-height: 1.2;
   font-weight: 400;
-
   text-align: center;
 }
 
 .header-rule {
   width: 32mm;
   height: 2px;
-
   margin: 8px auto 0;
-
-  background: #ffffff;
+  background: #fff;
 }
-
-/* =====================================================
-   BODY
-   ===================================================== */
 
 .cv-content {
   display: flex;
-
   align-items: flex-start;
-
   width: 100%;
 }
 
-/* =====================================================
-   SIDEBAR
-   ===================================================== */
-
 .cv-sidebar {
   flex: 0 0 31%;
-
   width: 31%;
-
   padding: 8mm 7mm;
-
   background: #f3f3f3;
-
   text-align: left;
 }
 
 .sidebar-section {
   width: 100%;
-
-  margin-top: 0;
-  margin-bottom: 7mm;
-
+  margin: 0 0 7mm;
   text-align: left;
-
   break-inside: avoid !important;
   page-break-inside: avoid !important;
 }
 
-.sidebar-section h2 {
+.sidebar-section h2,
+.cv-section h2 {
   width: 100%;
-
   margin: 0 0 10px;
-
   padding-bottom: 5px;
-
   border-bottom: 2px solid #0058a4;
-
   color: #4b4b4b;
-
   font-size: 13px;
   font-weight: 500;
-
   letter-spacing: 0.5px;
-
   text-align: left;
-
   break-after: avoid !important;
   page-break-after: avoid !important;
 }
 
 .contact-row {
   width: 100%;
-
   margin-bottom: 6px;
-
   color: #333;
-
   font-size: 8.5px;
   line-height: 1.35;
-
   text-align: left;
-
   word-break: break-word;
-
   break-inside: avoid !important;
   page-break-inside: avoid !important;
 }
 
-.contact-row:last-child {
-  margin-bottom: 0;
+.contact-row a,
+.sidebar-entry a,
+.sidebar-section p a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  word-break: break-word;
 }
 
 .sidebar-entry {
   width: 100%;
-
   margin-bottom: 9px;
-
   font-size: 8.5px;
   line-height: 1.35;
-
   text-align: left;
-
   break-inside: avoid !important;
   page-break-inside: avoid !important;
-}
-
-.sidebar-entry:last-child {
-  margin-bottom: 0;
 }
 
 .sidebar-entry strong,
@@ -646,154 +464,60 @@ textarea {
 
 .language-row {
   display: flex;
-
   justify-content: space-between;
-
   width: 100%;
-
   margin-bottom: 6px;
-
   font-size: 8.5px;
-
-  text-align: left;
-
   break-inside: avoid !important;
   page-break-inside: avoid !important;
-}
-
-.language-row:last-child {
-  margin-bottom: 0;
 }
 
 .sidebar-section p {
   margin: 0;
-
   font-size: 8.5px;
   line-height: 1.4;
-
-  text-align: left;
-
-  break-inside: avoid !important;
-  page-break-inside: avoid !important;
 }
-
-/* =====================================================
-   HYPERLINKS
-   ===================================================== */
-
-.contact-row a,
-.sidebar-entry a,
-.sidebar-section p a {
-  color: inherit;
-
-  text-decoration: none;
-
-  cursor: pointer;
-
-  word-break: break-word;
-}
-
-.contact-row a:hover,
-.sidebar-entry a:hover,
-.sidebar-section p a:hover {
-  color: #0058a4;
-
-  text-decoration: underline;
-}
-
-/* =====================================================
-   MAIN
-   ===================================================== */
 
 .cv-main {
   flex: 0 0 69%;
-
   width: 69%;
-
   min-width: 0;
-
   padding: 8mm 9mm;
-
   text-align: left;
 }
 
 .cv-section {
   width: 100%;
-
   margin-bottom: 8mm;
-
   text-align: left;
-}
-
-.cv-section h2 {
-  width: 100%;
-
-  margin: 0 0 10px;
-
-  padding-bottom: 5px;
-
-  border-bottom: 2px solid #0058a4;
-
-  color: #4b4b4b;
-
-  font-size: 13px;
-  font-weight: 500;
-
-  letter-spacing: 0.5px;
-
-  text-align: left;
-
-  break-after: avoid;
-  page-break-after: avoid;
 }
 
 .cv-section p {
   margin: 0;
-
   font-size: 9px;
   line-height: 1.5;
-
-  text-align: left;
 }
-
-/* =====================================================
-   SKILLS
-   ===================================================== */
 
 .skills-list {
   display: flex;
-
   flex-direction: column;
-
   width: 100%;
-
   gap: 4px;
-
-  text-align: left;
 }
 
 .skill-category {
   display: flex;
-
   align-items: flex-start;
-
   width: 100%;
-
   font-size: 8.8px;
   line-height: 1.45;
-
-  text-align: left;
-
   break-inside: avoid !important;
   page-break-inside: avoid !important;
 }
 
 .skill-category strong {
   flex: 0 0 auto;
-
   margin-right: 4px;
-
-  font-weight: 700;
 }
 
 .skill-category span {
@@ -801,36 +525,20 @@ textarea {
   min-width: 0;
 }
 
-/* =====================================================
-   EXPERIENCE
-
-   IMPORTANT:
-   Experience itself CAN split across pages.
-   ===================================================== */
-
 .experience-entry {
   width: 100%;
-
   margin-bottom: 7mm;
-
   text-align: left;
-
   break-inside: auto !important;
   page-break-inside: auto !important;
 }
 
 .experience-header {
   display: flex;
-
   align-items: flex-start;
   justify-content: space-between;
-
   width: 100%;
-
   gap: 8px;
-
-  text-align: left;
-
   break-inside: avoid;
   page-break-inside: avoid;
 }
@@ -842,118 +550,68 @@ textarea {
 
 .experience-header h3 {
   margin: 0;
-
   color: #222;
-
   font-size: 11px;
   line-height: 1.2;
   font-weight: 700;
-
-  text-align: left;
 }
 
 .company {
   margin-top: 3px;
-
   color: #0058a4;
-
   font-size: 9px;
   line-height: 1.3;
   font-weight: 700;
-
-  text-align: left;
 }
 
 .date-badge {
   flex-shrink: 0;
-
   padding: 4px 7px;
-
   background: #0058a4;
-
-  color: #ffffff;
-
+  color: #fff;
   font-size: 8px;
   line-height: 1;
   font-weight: 700;
-
   white-space: nowrap;
 }
 
-/* =====================================================
-   EXPERIENCE BULLETS
-
-   Each bullet is an indivisible unit.
-   ===================================================== */
-
 .experience-bullets {
   display: flex;
-
   flex-direction: column;
-
   width: 100%;
-
   margin-top: 8px;
-
   padding: 0;
 }
 
 .experience-bullet {
   display: flex;
-
   align-items: flex-start;
-
   width: 100%;
-
   margin: 0 0 4px;
   padding: 0;
-
   font-size: 8.7px;
   line-height: 1.45;
-
-  text-align: left;
-
   break-inside: avoid !important;
   page-break-inside: avoid !important;
 }
 
-.experience-bullet:last-child {
-  margin-bottom: 0;
-}
-
 .bullet-symbol {
   flex: 0 0 12px;
-
   width: 12px;
-
   margin: 0;
   padding: 0;
-
-  font-size: 9px;
-  line-height: 1.45;
 }
 
 .bullet-text {
   flex: 1;
-
   min-width: 0;
-
   margin: 0;
   padding: 0;
-
-  font-size: 8.7px;
-  line-height: 1.45;
 }
 
-/* =====================================================
-   PRINT
-   ===================================================== */
-
 @media print {
-
   @page {
     size: A4 portrait;
-
     margin: 8mm 10mm 8mm 10mm;
   }
 
@@ -962,7 +620,6 @@ textarea {
   #root {
     width: 100%;
     height: auto;
-
     margin: 0;
     padding: 0;
   }
@@ -974,46 +631,27 @@ textarea {
   .preview {
     width: 100%;
     height: auto;
-
     padding: 0;
-
     overflow: visible;
-
-    background: #ffffff;
+    background: #fff;
   }
 
   .cv {
     width: 190mm;
-
     min-height: 281mm;
-
     margin: 0 auto;
-
     box-shadow: none;
   }
-
-  /*
-   * EXPERIENCE:
-   * Do NOT prevent the whole experience from splitting.
-   */
 
   .experience-entry {
     break-inside: auto !important;
     page-break-inside: auto !important;
   }
 
-  /*
-   * Individual bullets MUST remain together.
-   */
-
   .experience-bullet {
     break-inside: avoid !important;
     page-break-inside: avoid !important;
   }
-
-  /*
-   * Sidebar items stay together.
-   */
 
   .sidebar-section,
   .sidebar-entry,
@@ -1024,32 +662,13 @@ textarea {
     page-break-inside: avoid !important;
   }
 
-  /*
-   * Keep headings with their following content.
-   */
-
-  .cv-section h2,
-  .sidebar-section h2 {
-    break-after: avoid !important;
-    page-break-after: avoid !important;
-  }
-
-  /*
-   * Clean PDF hyperlinks.
-   */
-
   a {
     color: inherit !important;
     text-decoration: none !important;
   }
 }
 
-/* =====================================================
-   RESPONSIVE
-   ===================================================== */
-
 @media (max-width: 1200px) {
-
   .app {
     grid-template-columns: 370px minmax(0, 1fr);
   }
@@ -1060,26 +679,20 @@ textarea {
 }
 
 @media (max-width: 900px) {
-
   .app {
     display: block;
-
     height: auto;
-
     overflow: visible;
   }
 
   .editor {
     height: auto;
-
     border-right: none;
   }
 
   .preview {
     height: auto;
-
     min-height: 100vh;
-
     overflow: auto;
   }
 }
