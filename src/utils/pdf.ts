@@ -2,7 +2,12 @@ import html2pdf from 'html2pdf.js'
 
 export function downloadCVPdf(element: HTMLElement, filename: string) {
   const options = {
-    margin: [8, 10, 8, 10],
+    margin: [8, 10, 8, 10] as [
+      number,
+      number,
+      number,
+      number,
+    ],
     filename,
     image: {
       type: 'jpeg' as const,
