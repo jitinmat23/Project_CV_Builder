@@ -4,11 +4,11 @@ import {
   useEffect,
   useRef,
   useState,
+  type MutableRefObject,
   type ReactNode,
 } from 'react'
 
 import { defaultCV } from '../data/defaultCV'
-
 import type {
   Certification,
   CVData,
@@ -17,59 +17,59 @@ import type {
   Language,
   SkillCategory,
 } from '../types/cv'
-
 import { downloadCVPdf } from '../utils/pdf'
 
-const STORAGE_KEY = 'cv-builder-data-v1'
+const PROFILES_STORAGE_KEY = 'cv-builder-profiles-v1'
+const OLD_CV_STORAGE_KEY = 'cv-builder-data-v1'
+
+export type CVProfile = {
+  id: string
+  name: string
+  cv: CVData
+}
 
 type CVContextValue = {
   cv: CVData
+  cvRef: MutableRefObject<HTMLDivElement | null>
 
-  cvRef: React.MutableRefObject<HTMLDivElement | null>
+  profiles: CVProfile[]
+  activeProfileId: string
 
   updatePersonal: (
     field: keyof CVData['personal'],
     value: string
   ) => void
 
-  updateProfile: (
-    value: string
-  ) => void
-
-  updateSkills: (
-    skills: SkillCategory[]
-  ) => void
-
-  updateExperiences: (
-    experiences: Experience[]
-  ) => void
-
-  updateEducations: (
-    educations: Education[]
-  ) => void
-
-  updateCertifications: (
-    certifications: Certification[]
-  ) => void
-
-  updateLanguages: (
-    languages: Language[]
-  ) => void
+  updateProfile: (value: string) => void
+  updateSkills: (skills: SkillCategory[]) => void
+  updateExperiences: (experiences: Experience[]) => void
+  updateEducations: (educations: Education[]) => void
+  updateCertifications: (certifications: Certification[]) => void
+  updateLanguages: (languages: Language[]) => void
 
   updatePublication: (
     field: keyof CVData['publication'],
     value: string
   ) => void
 
-  updateHobbies: (
-    value: string
-  ) => void
-
-  updatePhoto: (
-    file: File
-  ) => void
-
+  updateHobbies: (value: string) => void
+  updatePhoto: (file: File) => void
   downloadPdf: () => void
+
+  createProfile: (name?: string) => void
+  duplicateProfile: (
+    profileId: string
+  ) => void
+  renameProfile: (
+    profileId: string,
+    name: string
+  ) => void
+  deleteProfile: (
+    profileId: string
+  ) => void
+  selectProfile: (
+    profileId: string
+  ) => void
 
   resetCV: () => void
 }
@@ -77,65 +77,110 @@ type CVContextValue = {
 const CVContext =
   createContext<CVContextValue | null>(null)
 
-function loadSavedCV(): CVData {
+function cloneCV(cv: CVData): CVData {
+  return JSON.parse(
+    JSON.stringify(cv)
+  ) as CVData
+}
+
+function createId(): string {
+  return `${Date.now()}-${Math.random()
+    .toString(36)
+    .slice(2, 9)}`
+}
+
+function createDefaultProfile(): CVProfile {
+  return {
+    id: createId(),
+    name: 'Software Test Engineer',
+    cv: cloneCV(defaultCV),
+  }
+}
+
+function loadInitialProfiles(): {
+  profiles: CVProfile[]
+  activeProfileId: string
+} {
   try {
-    const saved =
+    const savedProfiles =
       localStorage.getItem(
-        STORAGE_KEY
+        PROFILES_STORAGE_KEY
       )
 
-    if (!saved) {
-      return defaultCV
+    if (savedProfiles) {
+      const parsed =
+        JSON.parse(savedProfiles)
+
+      if (
+        Array.isArray(parsed.profiles) &&
+        parsed.profiles.length > 0
+      ) {
+        return {
+          profiles: parsed.profiles,
+          activeProfileId:
+            parsed.activeProfileId ||
+            parsed.profiles[0].id,
+        }
+      }
     }
 
-    const parsed =
-      JSON.parse(saved)
+    /*
+     * Migration from the previous
+     * single-CV localStorage version.
+     */
+
+    const oldCV =
+      localStorage.getItem(
+        OLD_CV_STORAGE_KEY
+      )
+
+    if (oldCV) {
+      const parsedCV =
+        JSON.parse(oldCV) as CVData
+
+      const profile: CVProfile = {
+        id: createId(),
+        name:
+          parsedCV.personal?.jobTitle ||
+          'My CV',
+        cv: {
+          ...cloneCV(defaultCV),
+          ...parsedCV,
+          personal: {
+            ...cloneCV(
+              defaultCV
+            ).personal,
+            ...(parsedCV.personal || {}),
+          },
+        },
+      }
+
+      return {
+        profiles: [profile],
+        activeProfileId: profile.id,
+      }
+    }
+
+    const profile =
+      createDefaultProfile()
 
     return {
-      ...defaultCV,
-      ...parsed,
-
-      personal: {
-        ...defaultCV.personal,
-        ...(parsed.personal || {}),
-      },
-
-      skills:
-        parsed.skills ||
-        defaultCV.skills,
-
-      experiences:
-        parsed.experiences ||
-        defaultCV.experiences,
-
-      educations:
-        parsed.educations ||
-        defaultCV.educations,
-
-      certifications:
-        parsed.certifications ||
-        defaultCV.certifications,
-
-      languages:
-        parsed.languages ||
-        defaultCV.languages,
-
-      publication: {
-        ...defaultCV.publication,
-        ...(parsed.publication || {}),
-      },
-
-      hobbies:
-        parsed.hobbies ??
-        defaultCV.hobbies,
+      profiles: [profile],
+      activeProfileId: profile.id,
     }
   } catch (error) {
     console.error(
-      'Could not load saved CV:',
+      'Could not load CV profiles:',
       error
     )
 
-    return defaultCV
+    const profile =
+      createDefaultProfile()
+
+    return {
+      profiles: [profile],
+      activeProfileId: profile.id,
+    }
   }
 }
 
@@ -144,270 +189,194 @@ export function CVProvider({
 }: {
   children: ReactNode
 }) {
+  const initial =
+    useRef(loadInitialProfiles())
 
-  /*
-   * Load the saved CV when the application starts.
-   *
-   * If there is no saved CV, the default CV
-   * from defaultCV.ts is used.
-   */
-
-  const [cv, setCv] =
-    useState<CVData>(
-      loadSavedCV
+  const [profiles, setProfiles] =
+    useState<CVProfile[]>(
+      initial.current.profiles
     )
+
+  const [
+    activeProfileId,
+    setActiveProfileId,
+  ] = useState<string>(
+    initial.current.activeProfileId
+  )
 
   const cvRef =
     useRef<HTMLDivElement | null>(
       null
     )
 
+  const activeProfile =
+    profiles.find(
+      profile =>
+        profile.id ===
+        activeProfileId
+    ) || profiles[0]
+
+  const cv =
+    activeProfile?.cv ||
+    defaultCV
+
   /*
-   * AUTO SAVE
-   *
-   * Every time CV data changes,
-   * save it to localStorage.
+   * AUTO SAVE ALL PROFILES
    */
 
   useEffect(() => {
-
     try {
-
       localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(cv)
+        PROFILES_STORAGE_KEY,
+        JSON.stringify({
+          profiles,
+          activeProfileId,
+        })
       )
-
     } catch (error) {
-
       console.error(
-        'Could not save CV:',
+        'Could not save CV profiles:',
         error
       )
-
     }
+  }, [
+    profiles,
+    activeProfileId,
+  ])
 
-  }, [cv])
-
-  /*
-   * PERSONAL INFORMATION
-   */
+  function updateCurrentCV(
+    updater: (
+      current: CVData
+    ) => CVData
+  ) {
+    setProfiles(currentProfiles =>
+      currentProfiles.map(
+        profile =>
+          profile.id ===
+          activeProfileId
+            ? {
+                ...profile,
+                cv: updater(
+                  profile.cv
+                ),
+              }
+            : profile
+      )
+    )
+  }
 
   function updatePersonal(
     field:
       keyof CVData['personal'],
     value: string
   ) {
-
-    setCv(current => ({
-
+    updateCurrentCV(current => ({
       ...current,
-
       personal: {
-
         ...current.personal,
-
         [field]: value,
-
       },
-
     }))
-
   }
-
-  /*
-   * PROFILE
-   */
 
   function updateProfile(
     value: string
   ) {
-
-    setCv(current => ({
-
+    updateCurrentCV(current => ({
       ...current,
-
       profile: value,
-
     }))
-
   }
-
-  /*
-   * SKILLS
-   */
 
   function updateSkills(
     skills: SkillCategory[]
   ) {
-
-    setCv(current => ({
-
+    updateCurrentCV(current => ({
       ...current,
-
       skills,
-
     }))
-
   }
-
-  /*
-   * EXPERIENCE
-   */
 
   function updateExperiences(
     experiences: Experience[]
   ) {
-
-    setCv(current => ({
-
+    updateCurrentCV(current => ({
       ...current,
-
       experiences,
-
     }))
-
   }
-
-  /*
-   * EDUCATION
-   */
 
   function updateEducations(
     educations: Education[]
   ) {
-
-    setCv(current => ({
-
+    updateCurrentCV(current => ({
       ...current,
-
       educations,
-
     }))
-
   }
-
-  /*
-   * CERTIFICATIONS
-   */
 
   function updateCertifications(
-    certifications:
-      Certification[]
+    certifications: Certification[]
   ) {
-
-    setCv(current => ({
-
+    updateCurrentCV(current => ({
       ...current,
-
       certifications,
-
     }))
-
   }
-
-  /*
-   * LANGUAGES
-   */
 
   function updateLanguages(
     languages: Language[]
   ) {
-
-    setCv(current => ({
-
+    updateCurrentCV(current => ({
       ...current,
-
       languages,
-
     }))
-
   }
-
-  /*
-   * PUBLICATION
-   */
 
   function updatePublication(
     field:
       keyof CVData['publication'],
     value: string
   ) {
-
-    setCv(current => ({
-
+    updateCurrentCV(current => ({
       ...current,
-
       publication: {
-
         ...current.publication,
-
         [field]: value,
-
       },
-
     }))
-
   }
-
-  /*
-   * HOBBIES
-   */
 
   function updateHobbies(
     value: string
   ) {
-
-    setCv(current => ({
-
+    updateCurrentCV(current => ({
       ...current,
-
       hobbies: value,
-
     }))
-
   }
-
-  /*
-   * PHOTO
-   */
 
   function updatePhoto(
     file: File
   ) {
-
     const reader =
       new FileReader()
 
     reader.onload = () => {
-
-      setCv(current => ({
-
+      updateCurrentCV(current => ({
         ...current,
-
         personal: {
-
           ...current.personal,
-
           photo:
             reader.result as string,
-
         },
-
       }))
-
     }
 
     reader.readAsDataURL(file)
-
   }
 
-  /*
-   * DOWNLOAD PDF
-   */
-
   function downloadPdf() {
-
     if (!cvRef.current) {
       return
     }
@@ -422,93 +391,224 @@ export function CVProvider({
       cvRef.current,
       filename
     )
-
   }
 
-  /*
-   * RESET CV
-   *
-   * This removes the saved CV and
-   * returns the application to the
-   * original default CV.
-   */
+  function createProfile(
+    name = 'New CV'
+  ) {
+    const profile: CVProfile = {
+      id: createId(),
+      name,
+      cv: cloneCV(defaultCV),
+    }
 
-  function resetCV() {
+    setProfiles(current => [
+      ...current,
+      profile,
+    ])
+
+    setActiveProfileId(
+      profile.id
+    )
+  }
+
+  function duplicateProfile(
+    profileId: string
+  ) {
+    const source =
+      profiles.find(
+        profile =>
+          profile.id ===
+          profileId
+      )
+
+    if (!source) {
+      return
+    }
+
+    const duplicate: CVProfile = {
+      id: createId(),
+      name: `${source.name} Copy`,
+      cv: cloneCV(
+        source.cv
+      ),
+    }
+
+    setProfiles(current => {
+      const index =
+        current.findIndex(
+          profile =>
+            profile.id ===
+            profileId
+        )
+
+      const next = [
+        ...current,
+      ]
+
+      next.splice(
+        index + 1,
+        0,
+        duplicate
+      )
+
+      return next
+    })
+
+    setActiveProfileId(
+      duplicate.id
+    )
+  }
+
+  function renameProfile(
+    profileId: string,
+    name: string
+  ) {
+    const trimmed =
+      name.trim()
+
+    if (!trimmed) {
+      return
+    }
+
+    setProfiles(current =>
+      current.map(profile =>
+        profile.id ===
+        profileId
+          ? {
+              ...profile,
+              name: trimmed,
+            }
+          : profile
+      )
+    )
+  }
+
+  function deleteProfile(
+    profileId: string
+  ) {
+    if (profiles.length <= 1) {
+      window.alert(
+        'You must keep at least one CV profile.'
+      )
+      return
+    }
+
+    const profile =
+      profiles.find(
+        item =>
+          item.id ===
+          profileId
+      )
+
+    if (!profile) {
+      return
+    }
 
     const confirmed =
       window.confirm(
-        'Are you sure you want to reset your CV to the default data? All your current browser-saved changes will be removed.'
+        `Delete "${profile.name}"? This CV cannot be recovered.`
       )
 
     if (!confirmed) {
       return
     }
 
-    localStorage.removeItem(
-      STORAGE_KEY
+    const remaining =
+      profiles.filter(
+        item =>
+          item.id !==
+          profileId
+      )
+
+    setProfiles(remaining)
+
+    if (
+      profileId ===
+      activeProfileId
+    ) {
+      setActiveProfileId(
+        remaining[0].id
+      )
+    }
+  }
+
+  function selectProfile(
+    profileId: string
+  ) {
+    const exists =
+      profiles.some(
+        profile =>
+          profile.id ===
+          profileId
+      )
+
+    if (exists) {
+      setActiveProfileId(
+        profileId
+      )
+    }
+  }
+
+  function resetCV() {
+    const confirmed =
+      window.confirm(
+        'Reset this CV to the default data? Your changes in this profile will be removed.'
+      )
+
+    if (!confirmed) {
+      return
+    }
+
+    updateCurrentCV(() =>
+      cloneCV(defaultCV)
     )
-
-    setCv(defaultCV)
-
   }
 
   return (
-
     <CVContext.Provider
       value={{
-
         cv,
-
         cvRef,
 
+        profiles,
+        activeProfileId,
+
         updatePersonal,
-
         updateProfile,
-
         updateSkills,
-
         updateExperiences,
-
         updateEducations,
-
         updateCertifications,
-
         updateLanguages,
-
         updatePublication,
-
         updateHobbies,
-
         updatePhoto,
-
         downloadPdf,
 
-        resetCV,
+        createProfile,
+        duplicateProfile,
+        renameProfile,
+        deleteProfile,
+        selectProfile,
 
+        resetCV,
       }}
     >
-
       {children}
-
     </CVContext.Provider>
-
   )
-
 }
 
 export function useCV() {
-
   const context =
     useContext(CVContext)
 
   if (!context) {
-
     throw new Error(
       'useCV must be used inside CVProvider'
     )
-
   }
 
   return context
-
 }

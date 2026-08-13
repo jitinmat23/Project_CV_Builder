@@ -8,6 +8,7 @@ import CertificationEditor from './CertificationEditor'
 import LanguagesEditor from './LanguagesEditor'
 import PublicationEditor from './PublicationEditor'
 import HobbiesEditor from './HobbiesEditor'
+import ProfileManager from './ProfileManager'
 import { useCV } from '../../context/CVContext'
 
 export default function CVEditor() {
@@ -15,15 +16,26 @@ export default function CVEditor() {
 
   return (
     <div className="editor">
+
       <div className="editor-header">
+
         <h1>CV Builder</h1>
+
         <p>
-          Edit the information below. The CV preview updates automatically.
+          Edit the information below.
+          The CV preview updates automatically.
         </p>
-        <button className="download-button" onClick={downloadPdf}>
+
+        <button
+          className="download-button"
+          onClick={downloadPdf}
+        >
           Download PDF
         </button>
+
       </div>
+
+      <ProfileManager />
 
       <EditorSection title="Personal Information">
         <PersonalInfoEditor />
@@ -33,58 +45,23 @@ export default function CVEditor() {
         <ProfileEditor />
       </EditorSection>
 
-      <EditorSection
-        title="Professional Skills"
-        action={
-          <span className="section-action-label">
-            Edit below
-          </span>
-        }
-      >
+      <EditorSection title="Professional Skills">
         <SkillsEditor />
       </EditorSection>
 
-      <EditorSection
-        title="Work Experience"
-        action={
-          <span className="section-action-label">
-            Edit below
-          </span>
-        }
-      >
+      <EditorSection title="Work Experience">
         <ExperienceEditor />
       </EditorSection>
 
-      <EditorSection
-        title="Education"
-        action={
-          <span className="section-action-label">
-            Edit below
-          </span>
-        }
-      >
+      <EditorSection title="Education">
         <EducationEditor />
       </EditorSection>
 
-      <EditorSection
-        title="Certifications"
-        action={
-          <span className="section-action-label">
-            Edit below
-          </span>
-        }
-      >
+      <EditorSection title="Certifications">
         <CertificationEditor />
       </EditorSection>
 
-      <EditorSection
-        title="Languages"
-        action={
-          <span className="section-action-label">
-            Edit below
-          </span>
-        }
-      >
+      <EditorSection title="Languages">
         <LanguagesEditor />
       </EditorSection>
 
@@ -95,6 +72,7 @@ export default function CVEditor() {
       <EditorSection title="Hobbies">
         <HobbiesEditor />
       </EditorSection>
+
     </div>
   )
 }
