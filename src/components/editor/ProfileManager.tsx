@@ -12,20 +12,16 @@ export default function ProfileManager() {
     selectProfile,
   } = useCV()
 
-  const [renameId, setRenameId] =
-    useState<string | null>(null)
-
-  const [renameValue, setRenameValue] =
-    useState('')
+  const [renameId, setRenameId] = useState<string | null>(null)
+  const [renameValue, setRenameValue] = useState('')
 
   function handleCreate() {
+    // Deliberately no prompt/modal here.
+    // This makes the button work immediately and reliably.
     createProfile('New CV')
   }
 
-  function startRename(
-    id: string,
-    currentName: string
-  ) {
+  function startRename(id: string, currentName: string) {
     setRenameId(id)
     setRenameValue(currentName)
   }
@@ -34,11 +30,9 @@ export default function ProfileManager() {
     if (!renameId) return
 
     const name = renameValue.trim()
-
     if (!name) return
 
     renameProfile(renameId, name)
-
     setRenameId(null)
     setRenameValue('')
   }
@@ -50,14 +44,11 @@ export default function ProfileManager() {
 
   return (
     <section className="profile-manager">
-
       <div className="profile-manager-header">
         <div className="profile-manager-heading">
           <h2>MY CV PROFILES</h2>
-
           <p>
-            Create separate CVs for different
-            career targets.
+            Create separate CVs for different career targets.
           </p>
         </div>
 
@@ -66,32 +57,24 @@ export default function ProfileManager() {
           className="profile-create-button"
           onClick={handleCreate}
         >
-          + Create New CV
+          + New CV
         </button>
       </div>
 
       <div className="profile-list">
         {profiles.map(profile => {
-          const isActive =
-            profile.id === activeProfileId
-
-          const isRenaming =
-            renameId === profile.id
+          const isActive = profile.id === activeProfileId
+          const isRenaming = renameId === profile.id
 
           return (
             <article
-              className={`profile-card ${
-                isActive ? 'active' : ''
-              }`}
+              className={`profile-card${isActive ? ' active' : ''}`}
               key={profile.id}
             >
-
               <button
                 type="button"
                 className="profile-select"
-                onClick={() =>
-                  selectProfile(profile.id)
-                }
+                onClick={() => selectProfile(profile.id)}
               >
                 <span className="profile-icon">
                   {isActive ? '✓' : 'CV'}
@@ -103,34 +86,19 @@ export default function ProfileManager() {
                       autoFocus
                       className="profile-rename-input"
                       value={renameValue}
-                      onChange={event =>
-                        setRenameValue(
-                          event.target.value
-                        )
-                      }
-                      onClick={event =>
-                        event.stopPropagation()
-                      }
+                      onChange={event => setRenameValue(event.target.value)}
+                      onClick={event => event.stopPropagation()}
                       onKeyDown={event => {
-                        if (event.key === 'Enter') {
-                          saveRename()
-                        }
-
-                        if (event.key === 'Escape') {
-                          cancelRename()
-                        }
+                        if (event.key === 'Enter') saveRename()
+                        if (event.key === 'Escape') cancelRename()
                       }}
                     />
                   ) : (
-                    <strong>
-                      {profile.name}
-                    </strong>
+                    <strong>{profile.name}</strong>
                   )}
 
                   {isActive && (
-                    <small className="profile-status">
-                      Active CV
-                    </small>
+                    <small className="profile-status">Active CV</small>
                   )}
                 </span>
               </button>
@@ -145,7 +113,6 @@ export default function ProfileManager() {
                     >
                       Save
                     </button>
-
                     <button
                       type="button"
                       className="profile-action"
@@ -158,12 +125,7 @@ export default function ProfileManager() {
                   <button
                     type="button"
                     className="profile-action"
-                    onClick={() =>
-                      startRename(
-                        profile.id,
-                        profile.name
-                      )
-                    }
+                    onClick={() => startRename(profile.id, profile.name)}
                   >
                     Rename
                   </button>
@@ -172,9 +134,7 @@ export default function ProfileManager() {
                 <button
                   type="button"
                   className="profile-action"
-                  onClick={() =>
-                    duplicateProfile(profile.id)
-                  }
+                  onClick={() => duplicateProfile(profile.id)}
                 >
                   Duplicate
                 </button>
@@ -182,19 +142,15 @@ export default function ProfileManager() {
                 <button
                   type="button"
                   className="profile-action delete"
-                  onClick={() =>
-                    deleteProfile(profile.id)
-                  }
+                  onClick={() => deleteProfile(profile.id)}
                 >
                   Delete
                 </button>
               </div>
-
             </article>
           )
         })}
       </div>
-
     </section>
   )
 }

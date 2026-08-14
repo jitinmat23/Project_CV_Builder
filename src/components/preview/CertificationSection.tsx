@@ -1,28 +1,4 @@
 import { useCV } from '../../context/CVContext'
 import { getSafeUrl } from '../../utils/url'
-
-export default function CertificationSection() {
-  const { cv } = useCV()
-
-  return (
-    <section className="sidebar-section">
-      <h2>ADVANCED TRAINING</h2>
-
-      {cv.certifications.map((certification, index) => (
-        <div className="sidebar-entry" key={index}>
-          {certification.url ? (
-            <a
-              href={getSafeUrl(certification.url)}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {certification.name}
-            </a>
-          ) : (
-            certification.name
-          )}
-        </div>
-      ))}
-    </section>
-  )
-}
+import { cvLabels } from '../../utils/i18n'
+export default function CertificationSection() { const { cv, language }=useCV(); return <section className="sidebar-section"><h2>{cvLabels[language].certifications}</h2>{cv.certifications.map((c,index)=><div className="sidebar-entry" key={index}>{c.url?<a href={getSafeUrl(c.url)} target="_blank" rel="noopener noreferrer">{c.name}</a>:c.name}</div>)}</section> }
