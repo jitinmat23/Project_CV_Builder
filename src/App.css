@@ -917,6 +917,7 @@ textarea {
 }
 
 .ats-cv-page {
+  box-sizing: border-box;
   width: 100%;
   min-height: 281mm;
   padding: 14mm 16mm 15mm;
@@ -928,14 +929,15 @@ textarea {
   align-items: flex-start;
   justify-content: space-between;
   gap: 12mm;
+  width: 100%;
   padding-bottom: 6mm;
   border-bottom: 1.2px solid #444;
-  break-inside: avoid;
-  page-break-inside: avoid;
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
 }
 
 .ats-header-main {
-  flex: 1;
+  flex: 1 1 auto;
   min-width: 0;
   padding-top: 1mm;
 }
@@ -961,7 +963,6 @@ textarea {
 .ats-links-line {
   display: flex;
   flex-wrap: wrap;
-  gap: 0;
   margin-top: 8px;
   color: #333;
   font-size: 8.8px;
@@ -976,13 +977,14 @@ textarea {
 
 .ats-contact-line span:not(:last-child)::after,
 .ats-links-line span:not(:last-child)::after {
-  content: ' | ';
-  margin: 0 5px;
-  color: #888;
+  content: '|';
+  margin: 0 6px;
+  color: #999;
 }
 
-.ats-links-line a {
-  color: #333;
+.ats-links-line a,
+.ats-section a {
+  color: inherit;
   text-decoration: underline;
   text-underline-offset: 1px;
 }
@@ -995,6 +997,8 @@ textarea {
   width: 31mm;
   height: 37mm;
   overflow: hidden;
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
 }
 
 .ats-photo,
@@ -1009,6 +1013,7 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
   border: 1px solid #d1d1d1;
   background: #f5f5f5;
   color: #888;
@@ -1031,8 +1036,10 @@ textarea {
   line-height: 1.2;
   font-weight: 700;
   letter-spacing: 0.6px;
-  break-after: avoid;
-  page-break-after: avoid;
+  break-after: avoid !important;
+  page-break-after: avoid !important;
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
 }
 
 .ats-section p {
@@ -1040,12 +1047,6 @@ textarea {
   color: #333;
   font-size: 8.8px;
   line-height: 1.5;
-}
-
-.ats-section a {
-  color: inherit;
-  text-decoration: underline;
-  text-underline-offset: 1px;
 }
 
 .ats-bullet-list {
@@ -1059,15 +1060,26 @@ textarea {
 .ats-bullet-list li {
   margin: 0 0 2.2px;
   padding-left: 1px;
-  break-inside: avoid;
-  page-break-inside: avoid;
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
 }
 
 .ats-experience,
 .ats-education {
+  width: 100%;
   margin: 0 0 5.5mm;
-  break-inside: auto;
-  page-break-inside: auto;
+  break-inside: auto !important;
+  page-break-inside: auto !important;
+}
+
+.ats-experience-heading,
+.ats-education-heading {
+  display: block;
+  width: 100%;
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+  break-after: avoid !important;
+  page-break-after: avoid !important;
 }
 
 .ats-entry-topline {
@@ -1078,15 +1090,15 @@ textarea {
   font-size: 8px;
   line-height: 1.35;
   font-weight: 600;
-  break-after: avoid;
-  page-break-after: avoid;
 }
 
 .ats-date {
   flex: 1;
+  min-width: 0;
 }
 
 .ats-location {
+  flex: 0 0 auto;
   text-align: right;
 }
 
@@ -1097,8 +1109,8 @@ textarea {
   font-size: 10px;
   line-height: 1.25;
   font-weight: 700;
-  break-after: avoid;
-  page-break-after: avoid;
+  break-after: avoid !important;
+  page-break-after: avoid !important;
 }
 
 .ats-company {
@@ -1107,8 +1119,12 @@ textarea {
   font-size: 8.7px;
   line-height: 1.35;
   font-weight: 600;
-  break-after: avoid;
-  page-break-after: avoid;
+}
+
+.ats-experience-bullets {
+  margin-top: 2px;
+  break-inside: auto !important;
+  page-break-inside: auto !important;
 }
 
 .ats-grade {
@@ -1122,20 +1138,41 @@ textarea {
     grid-template-columns: 1fr;
   }
 
+  .ats-cv-page {
+    padding: 10mm;
+  }
+
   .ats-header {
     gap: 6mm;
+  }
+
+  .ats-photo-wrap,
+  .ats-photo,
+  .ats-photo-placeholder {
+    width: 25mm;
+    height: 30mm;
   }
 }
 
 @media print {
+  .cv-ats .ats-cv-page {
+    min-height: 281mm;
+    padding: 14mm 16mm 15mm;
+  }
+
   .cv-ats .ats-header,
   .cv-ats .ats-section h3,
-  .cv-ats .ats-entry-topline,
-  .cv-ats .ats-experience h4,
-  .cv-ats .ats-education h4,
-  .cv-ats .ats-company {
+  .cv-ats .ats-experience-heading,
+  .cv-ats .ats-education-heading {
     break-inside: avoid !important;
     page-break-inside: avoid !important;
+  }
+
+  .cv-ats .ats-experience,
+  .cv-ats .ats-education,
+  .cv-ats .ats-experience-bullets {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
   }
 
   .cv-ats .ats-bullet-list li {

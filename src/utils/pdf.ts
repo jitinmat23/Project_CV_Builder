@@ -36,6 +36,12 @@ export function downloadCVPdf(element: HTMLElement, filename: string) {
         '.sidebar-entry',
         '.language-row',
         '.skill-category',
+        '.ats-header',
+        '.ats-photo-wrap',
+        '.ats-section h3',
+        '.ats-experience-heading',
+        '.ats-education-heading',
+        '.ats-bullet-list li',
       ],
     },
   }
