@@ -737,141 +737,520 @@ textarea {
 }
 
 /* =========================================================
-   CV PROFILE MANAGER
+   TEMPLATE SELECTOR
    ========================================================= */
 
-.editor .profile-manager {
-  width: 100%;
-  box-sizing: border-box;
+.template-selector {
   margin: 0 0 30px;
-  padding: 22px;
+  padding: 18px;
   border: 1px solid #d9dee5;
-  border-radius: 12px;
+  border-radius: 10px;
   background: #f8f9fb;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
-.editor .profile-manager-header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 18px;
-  margin: 0 0 18px;
-}
-
-.editor .profile-manager-heading {
-  min-width: 0;
-}
-
-.editor .profile-manager-heading h2 {
+.template-selector-header h2 {
   margin: 0;
-  color: #2f3033;
-  font-size: 20px;
+  color: #333;
+  font-size: 15px;
   font-weight: 800;
-  line-height: 1.2;
+  letter-spacing: 0.4px;
+}
+
+.template-selector-header p {
+  margin: 5px 0 15px;
+  color: #777;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.template-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.template-option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid #d5dbe2;
+  border-radius: 8px;
+  background: #fff;
+  color: #333;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.template-option:hover {
+  border-color: #8faac0;
+  background: #fbfdff;
+}
+
+.template-option.active {
+  border-color: #075b9f;
+  box-shadow: 0 0 0 2px rgba(7, 91, 159, 0.08);
+}
+
+.template-option-preview {
+  position: relative;
+  display: block;
+  flex: 0 0 42px;
+  width: 42px;
+  height: 58px;
+  overflow: hidden;
+  border: 1px solid #cfd5dc;
+  border-radius: 3px;
+  background: #fff;
+}
+
+.professional-preview .mini-sidebar {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 35%;
+  background: #eeeeee;
+}
+
+.professional-preview .mini-main {
+  position: absolute;
+  top: 9px;
+  right: 5px;
+  bottom: 5px;
+  width: 57%;
+}
+
+.professional-preview .mini-main i {
+  display: block;
+  height: 3px;
+  margin-bottom: 5px;
+  border-radius: 2px;
+  background: #c5cbd1;
+}
+
+.professional-preview .mini-main i:first-child {
+  width: 75%;
+  background: #075b9f;
+}
+
+.ats-preview-thumb {
+  padding: 5px;
+}
+
+.mini-ats-header {
+  display: block;
+  width: 100%;
+  height: 11px;
+  margin-bottom: 5px;
+  border-bottom: 2px solid #555;
+}
+
+.mini-ats-lines i {
+  display: block;
+  height: 2px;
+  margin: 4px 0;
+  border-radius: 2px;
+  background: #c7cbd0;
+}
+
+.mini-ats-lines i:nth-child(1) {
+  width: 80%;
+}
+
+.mini-ats-lines i:nth-child(2) {
+  width: 95%;
+}
+
+.mini-ats-lines i:nth-child(3) {
+  width: 88%;
+}
+
+.mini-ats-lines i:nth-child(4) {
+  width: 72%;
+}
+
+.mini-ats-lines i:nth-child(5) {
+  width: 90%;
+}
+
+.template-option-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding-right: 18px;
+}
+
+.template-option-text strong {
+  color: #333;
+  font-size: 12px;
+  line-height: 1.3;
+}
+
+.template-option-text small {
+  margin-top: 3px;
+  color: #777;
+  font-size: 10px;
+  line-height: 1.3;
+}
+
+.template-check {
+  position: absolute;
+  top: 7px;
+  right: 8px;
+  color: #075b9f;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+/* =========================================================
+   TEMPLATE 2 — ATS + PHOTO
+   Single-column, text-first CV layout
+   ========================================================= */
+
+.cv-ats {
+  min-height: 281mm;
+  background: #fff;
+  color: #202124;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.ats-cv-page {
+  width: 100%;
+  min-height: 281mm;
+  padding: 14mm 16mm 15mm;
+  background: #fff;
+}
+
+.ats-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12mm;
+  padding-bottom: 6mm;
+  border-bottom: 1.2px solid #444;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.ats-header-main {
+  flex: 1;
+  min-width: 0;
+  padding-top: 1mm;
+}
+
+.ats-header h1 {
+  margin: 0;
+  color: #171717;
+  font-size: 25px;
+  line-height: 1.15;
+  font-weight: 700;
   letter-spacing: 0.2px;
 }
 
-.editor .profile-manager-heading p {
-  max-width: 420px;
-  margin: 7px 0 0;
+.ats-header h2 {
+  margin: 3px 0 0;
+  color: #555;
+  font-size: 12px;
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+.ats-contact-line,
+.ats-links-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin-top: 8px;
+  color: #333;
+  font-size: 8.8px;
+  line-height: 1.5;
+}
+
+.ats-contact-line span,
+.ats-links-line span {
+  display: inline-flex;
+  align-items: center;
+}
+
+.ats-contact-line span:not(:last-child)::after,
+.ats-links-line span:not(:last-child)::after {
+  content: ' | ';
+  margin: 0 5px;
+  color: #888;
+}
+
+.ats-links-line a {
+  color: #333;
+  text-decoration: underline;
+  text-underline-offset: 1px;
+}
+
+.ats-photo-wrap {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  flex: 0 0 31mm;
+  width: 31mm;
+  height: 37mm;
+  overflow: hidden;
+}
+
+.ats-photo,
+.ats-photo-placeholder {
+  display: block;
+  width: 31mm;
+  height: 37mm;
+  object-fit: cover;
+}
+
+.ats-photo-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d1d1d1;
+  background: #f5f5f5;
+  color: #888;
+  font-size: 8px;
+}
+
+.ats-section {
+  width: 100%;
+  margin: 6mm 0 0;
+  break-inside: auto;
+  page-break-inside: auto;
+}
+
+.ats-section h3 {
+  margin: 0 0 5px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid #555;
+  color: #202124;
+  font-size: 11px;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+.ats-section p {
+  margin: 0;
+  color: #333;
+  font-size: 8.8px;
+  line-height: 1.5;
+}
+
+.ats-section a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 1px;
+}
+
+.ats-bullet-list {
+  margin: 0;
+  padding-left: 14px;
+  color: #333;
+  font-size: 8.8px;
+  line-height: 1.48;
+}
+
+.ats-bullet-list li {
+  margin: 0 0 2.2px;
+  padding-left: 1px;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.ats-experience,
+.ats-education {
+  margin: 0 0 5.5mm;
+  break-inside: auto;
+  page-break-inside: auto;
+}
+
+.ats-entry-topline {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  color: #555;
+  font-size: 8px;
+  line-height: 1.35;
+  font-weight: 600;
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+.ats-date {
+  flex: 1;
+}
+
+.ats-location {
+  text-align: right;
+}
+
+.ats-experience h4,
+.ats-education h4 {
+  margin: 2px 0 1px;
+  color: #202124;
+  font-size: 10px;
+  line-height: 1.25;
+  font-weight: 700;
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+.ats-company {
+  margin-bottom: 3px;
+  color: #444;
+  font-size: 8.7px;
+  line-height: 1.35;
+  font-weight: 600;
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+.ats-grade {
+  margin-top: 3px;
+  color: #555;
+  font-size: 8.3px;
+}
+
+@media (max-width: 700px) {
+  .template-options {
+    grid-template-columns: 1fr;
+  }
+
+  .ats-header {
+    gap: 6mm;
+  }
+}
+
+@media print {
+  .cv-ats .ats-header,
+  .cv-ats .ats-section h3,
+  .cv-ats .ats-entry-topline,
+  .cv-ats .ats-experience h4,
+  .cv-ats .ats-education h4,
+  .cv-ats .ats-company {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .cv-ats .ats-bullet-list li {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+}
+
+/* =========================================================
+   LANGUAGE SELECTOR
+   ========================================================= */
+.language-selector { margin-top: 18px; padding-top: 18px; border-top: 1px solid #e1e5e9; }
+.language-selector-title { margin-bottom: 8px; color: #6b7076; font-size: 11px; font-weight: 800; letter-spacing: .8px; }
+.language-options { display: inline-flex; gap: 4px; padding: 3px; border: 1px solid #d8dde3; border-radius: 7px; background: #f1f3f5; }
+.language-option { min-width: 92px; min-height: 34px; padding: 0 12px; border: 0; border-radius: 5px; background: transparent; color: #646a71; font-family: inherit; font-size: 12px; font-weight: 650; cursor: pointer; }
+.language-option:hover { background: #fff; color: #075b9f; }
+.language-option.active { background: #fff; color: #075b9f; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+@media (max-width: 700px) { .language-options { display: flex; width: 100%; } .language-option { flex: 1; } }
+
+
+/* =========================================================
+   PROFILE MANAGER — FINAL UI OVERRIDES
+   ========================================================= */
+.profile-manager {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 0 24px;
+  padding: 20px;
+  border: 1px solid #d9dee5;
+  border-radius: 12px;
+  background: #f8f9fb;
+  box-shadow: 0 2px 8px rgba(0,0,0,.04);
+}
+
+.profile-manager-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.profile-manager-heading h2 {
+  margin: 0;
+  color: #2f3033;
+  font-size: 20px;
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+.profile-manager-heading p {
+  margin: 6px 0 0;
   color: #72767c;
   font-size: 13px;
   line-height: 1.45;
 }
 
-.editor .profile-create-button {
+.profile-create-button {
   flex: 0 0 auto;
-  min-height: 40px;
-  padding: 0 16px;
+  min-height: 38px;
+  padding: 0 15px;
   border: 0;
   border-radius: 7px;
   background: #075b9f;
-  color: #ffffff;
-  font-family: inherit;
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 40px;
+  color: #fff;
+  font: 700 13px/38px inherit;
   cursor: pointer;
-  transition:
-    background 0.15s ease,
-    transform 0.15s ease,
-    box-shadow 0.15s ease;
 }
 
-.editor .profile-create-button:hover {
-  background: #064d87;
-  box-shadow: 0 3px 8px rgba(7, 91, 159, 0.2);
-}
+.profile-create-button:hover { background: #064d87; }
 
-.editor .profile-create-button:active {
-  transform: translateY(1px);
-}
-
-.editor .profile-list {
+.profile-list {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.editor .profile-card {
+.profile-card {
   width: 100%;
   box-sizing: border-box;
   overflow: hidden;
   border: 1px solid #d9dee5;
   border-radius: 9px;
-  background: #ffffff;
-  transition:
-    border-color 0.15s ease,
-    box-shadow 0.15s ease,
-    transform 0.15s ease;
+  background: #fff;
 }
 
-.editor .profile-card:hover {
-  border-color: #b8c5d2;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-}
-
-.editor .profile-card.active {
+.profile-card.active {
   border-color: #075b9f;
-  box-shadow:
-    0 0 0 1px rgba(7, 91, 159, 0.08),
-    0 3px 10px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 0 0 1px rgba(7,91,159,.08);
 }
 
-.editor .profile-select {
+.profile-select {
   display: flex;
   align-items: center;
   width: 100%;
-  min-width: 0;
   box-sizing: border-box;
-  margin: 0;
-  padding: 15px 16px 11px;
-  border: 0;
-  outline: none;
-  background: transparent;
-  color: inherit;
-  font-family: inherit;
+  padding: 13px 15px 9px;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: inherit !important;
+  font: inherit;
   text-align: left;
+  box-shadow: none !important;
   cursor: pointer;
 }
 
-.editor .profile-select:hover,
-.editor .profile-select:focus,
-.editor .profile-select:active {
-  background: transparent;
-  color: inherit;
-  box-shadow: none;
-}
-
-.editor .profile-icon {
+.profile-icon {
   display: flex;
   align-items: center;
   justify-content: center;
   flex: 0 0 34px;
   width: 34px;
   height: 34px;
-  margin-right: 12px;
+  margin-right: 11px;
   border-radius: 50%;
   background: #e9eef3;
   color: #075b9f;
@@ -879,122 +1258,102 @@ textarea {
   font-weight: 800;
 }
 
-.editor .profile-card.active .profile-icon {
-  background: #075b9f;
-  color: #ffffff;
-}
+.profile-card.active .profile-icon { background: #075b9f; color: #fff; }
 
-.editor .profile-info {
+.profile-info {
   display: flex;
   flex-direction: column;
   min-width: 0;
   flex: 1;
 }
 
-.editor .profile-info strong {
-  display: block;
+.profile-info strong {
   overflow: hidden;
-  margin: 0;
   color: #2f3033;
   font-size: 14px;
-  font-weight: 750;
   line-height: 1.3;
+  font-weight: 750;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.editor .profile-status {
-  display: block;
+.profile-status {
   margin-top: 3px;
   color: #075b9f;
   font-size: 11px;
-  font-weight: 600;
-  line-height: 1.3;
+  font-weight: 650;
 }
 
-.editor .profile-actions {
+.profile-actions {
   display: flex;
-  align-items: center;
   flex-wrap: wrap;
   gap: 7px;
-  margin: 0;
-  padding: 0 16px 15px 62px;
+  padding: 0 15px 13px 60px;
 }
 
-.editor .profile-action {
-  min-height: 30px;
-  padding: 0 11px;
-  border: 1px solid #d1d7de;
-  border-radius: 5px;
-  background: #ffffff;
-  color: #555b62;
-  font-family: inherit;
-  font-size: 11px;
-  font-weight: 600;
-  line-height: 28px;
+.profile-action {
+  min-height: 29px;
+  padding: 0 10px;
+  border: 1px solid #d1d7de !important;
+  border-radius: 5px !important;
+  background: #fff !important;
+  color: #555b62 !important;
+  font: 600 11px/27px inherit;
   cursor: pointer;
-  transition:
-    border-color 0.15s ease,
-    color 0.15s ease,
-    background 0.15s ease;
+  box-shadow: none !important;
 }
 
-.editor .profile-action:hover {
-  border-color: #075b9f;
-  color: #075b9f;
-  background: #f5f9fc;
-}
+.profile-action:hover { border-color: #075b9f !important; color: #075b9f !important; background: #f5f9fc !important; }
+.profile-action.save { border-color: #075b9f !important; background: #075b9f !important; color: #fff !important; }
+.profile-action.delete { border-color: #e0c7c5 !important; color: #a33b34 !important; }
 
-.editor .profile-action.save {
-  border-color: #075b9f;
-  background: #075b9f;
-  color: #ffffff;
-}
-
-.editor .profile-action.save:hover {
-  background: #064d87;
-  color: #ffffff;
-}
-
-.editor .profile-action.delete {
-  border-color: #e0c7c5;
-  color: #a33b34;
-}
-
-.editor .profile-action.delete:hover {
-  border-color: #c85b52;
-  background: #fff7f6;
-  color: #9b2f28;
-}
-
-.editor .profile-rename-input {
+.profile-rename-input {
   width: 100%;
   max-width: 360px;
   box-sizing: border-box;
-  min-height: 34px;
-  padding: 5px 9px;
+  min-height: 32px;
+  padding: 5px 8px;
   border: 1px solid #075b9f;
   border-radius: 5px;
   outline: none;
-  background: #ffffff;
+  background: #fff;
   color: #2f3033;
-  font-family: inherit;
-  font-size: 14px;
-  line-height: 22px;
-  box-shadow: 0 0 0 2px rgba(7, 91, 159, 0.08);
+  font: 14px/20px inherit;
 }
 
-@media (max-width: 700px) {
-  .editor .profile-manager-header {
-    align-items: stretch;
-    flex-direction: column;
+/* =========================================================
+   ATS PAGINATION — KEEP ENTRY HEADER TOGETHER
+   Dates + title + company must move as one unit.
+   Bullet points are allowed to continue onto the next page.
+   ========================================================= */
+.ats-experience-heading,
+.ats-education-heading {
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+}
+
+.ats-experience,
+.ats-education {
+  break-inside: auto !important;
+  page-break-inside: auto !important;
+}
+
+.ats-experience .ats-bullet-list,
+.ats-education .ats-bullet-list {
+  break-inside: auto !important;
+  page-break-inside: auto !important;
+}
+
+@media print {
+  .ats-experience-heading,
+  .ats-education-heading {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
   }
 
-  .editor .profile-create-button {
-    width: 100%;
-  }
-
-  .editor .profile-actions {
-    padding-left: 16px;
+  .ats-experience,
+  .ats-education {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
   }
 }

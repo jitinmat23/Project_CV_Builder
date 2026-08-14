@@ -22,9 +22,14 @@ import { downloadCVPdf } from '../utils/pdf'
 const PROFILES_STORAGE_KEY = 'cv-builder-profiles-v1'
 const OLD_CV_STORAGE_KEY = 'cv-builder-data-v1'
 
+export type CVTemplate = 'professional' | 'ats'
+export type CVLanguage = 'en' | 'de'
+
 export type CVProfile = {
   id: string
   name: string
+  template: CVTemplate
+  language: CVLanguage
   cv: CVData
 }
 
@@ -34,6 +39,10 @@ type CVContextValue = {
 
   profiles: CVProfile[]
   activeProfileId: string
+  template: CVTemplate
+  setTemplate: (template: CVTemplate) => void
+  language: CVLanguage
+  setLanguage: (language: CVLanguage) => void
 
   updatePersonal: (
     field: keyof CVData['personal'],
@@ -97,6 +106,8 @@ function createDefaultProfile(): CVProfile {
   return {
     id: createId(),
     name: 'Software Test Engineer',
+    template: 'professional',
+    language: 'en',
     cv: cloneCV(defaultCV),
   }
 }
@@ -119,11 +130,29 @@ function loadInitialProfiles(): {
         Array.isArray(parsed.profiles) &&
         parsed.profiles.length > 0
       ) {
+        const normalizedProfiles: CVProfile[] =
+          parsed.profiles.map((profile: CVProfile) => ({
+            ...profile,
+            template:
+              profile.template === 'ats'
+                ? 'ats'
+                : 'professional',
+            language:
+              profile.language === 'de'
+                ? 'de'
+                : 'en',
+          }))
+
         return {
-          profiles: parsed.profiles,
+          profiles: normalizedProfiles,
           activeProfileId:
-            parsed.activeProfileId ||
-            parsed.profiles[0].id,
+            normalizedProfiles.some(
+              profile =>
+                profile.id ===
+                parsed.activeProfileId
+            )
+              ? parsed.activeProfileId
+              : normalizedProfiles[0].id,
         }
       }
     }
@@ -147,6 +176,8 @@ function loadInitialProfiles(): {
         name:
           parsedCV.personal?.jobTitle ||
           'My CV',
+        template: 'professional',
+        language: 'en',
         cv: {
           ...cloneCV(defaultCV),
           ...parsedCV,
@@ -224,6 +255,16 @@ export function CVProvider({
     activeProfile?.cv ||
     defaultCV
 
+  const template: CVTemplate =
+    activeProfile?.template === 'ats'
+      ? 'ats'
+      : 'professional'
+
+  const language: CVLanguage =
+    activeProfile?.language === 'de'
+      ? 'de'
+      : 'en'
+
   /*
    * AUTO SAVE ALL PROFILES
    */
@@ -247,6 +288,26 @@ export function CVProvider({
     profiles,
     activeProfileId,
   ])
+
+  function setTemplate(nextTemplate: CVTemplate) {
+    setProfiles(currentProfiles =>
+      currentProfiles.map(profile =>
+        profile.id === activeProfileId
+          ? { ...profile, template: nextTemplate }
+          : profile
+      )
+    )
+  }
+
+  function setLanguage(nextLanguage: CVLanguage) {
+    setProfiles(currentProfiles =>
+      currentProfiles.map(profile =>
+        profile.id === activeProfileId
+          ? { ...profile, language: nextLanguage }
+          : profile
+      )
+    )
+  }
 
   function updateCurrentCV(
     updater: (
@@ -475,6 +536,8 @@ export function CVProvider({
     const profile: CVProfile = {
       id: createId(),
       name,
+      template: 'professional',
+      language: 'en',
       cv: cloneCV(defaultCV),
     }
 
@@ -505,6 +568,8 @@ export function CVProvider({
     const duplicate: CVProfile = {
       id: createId(),
       name: `${source.name} Copy`,
+      template: source.template || 'professional',
+      language: source.language || 'en',
       cv: cloneCV(
         source.cv
       ),
@@ -649,6 +714,10 @@ export function CVProvider({
 
         profiles,
         activeProfileId,
+        template,
+        setTemplate,
+        language,
+        setLanguage,
 
         updatePersonal,
         updateProfile,
