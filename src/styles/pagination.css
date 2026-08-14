@@ -1,0 +1,30 @@
+.ats-education-heading {
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+}
+
+.ats-experience,
+.ats-education {
+  break-inside: auto !important;
+  page-break-inside: auto !important;
+}
+
+.ats-experience .ats-bullet-list,
+.ats-education .ats-bullet-list {
+  break-inside: auto !important;
+  page-break-inside: auto !important;
+}
+
+@media print {
+  .ats-experience-heading,
+  .ats-education-heading {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .ats-experience,
+  .ats-education {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+}

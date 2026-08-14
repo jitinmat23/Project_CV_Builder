@@ -1,0 +1,271 @@
+.cv-ats {
+  min-height: 281mm;
+  background: #fff;
+  color: #202124;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.ats-cv-page {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 281mm;
+  padding: 14mm 16mm 15mm;
+  background: #fff;
+}
+
+.ats-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12mm;
+  width: 100%;
+  padding-bottom: 6mm;
+  border-bottom: 1.2px solid #444;
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+}
+
+.ats-header-main {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding-top: 1mm;
+}
+
+.ats-header h1 {
+  margin: 0;
+  color: #171717;
+  font-size: 25px;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.ats-header h2 {
+  margin: 3px 0 0;
+  color: #555;
+  font-size: 12px;
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+.ats-contact-line,
+.ats-links-line {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 8px;
+  color: #333;
+  font-size: 8.8px;
+  line-height: 1.5;
+}
+
+.ats-contact-line span,
+.ats-links-line span {
+  display: inline-flex;
+  align-items: center;
+}
+
+.ats-contact-line span:not(:last-child)::after,
+.ats-links-line span:not(:last-child)::after {
+  content: '|';
+  margin: 0 6px;
+  color: #999;
+}
+
+.ats-links-line a,
+.ats-section a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 1px;
+}
+
+.ats-photo-wrap {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  flex: 0 0 31mm;
+  width: 31mm;
+  height: 37mm;
+  overflow: hidden;
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+}
+
+.ats-photo,
+.ats-photo-placeholder {
+  display: block;
+  width: 31mm;
+  height: 37mm;
+  object-fit: cover;
+}
+
+.ats-photo-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border: 1px solid #d1d1d1;
+  background: #f5f5f5;
+  color: #888;
+  font-size: 8px;
+}
+
+.ats-section {
+  width: 100%;
+  margin: 6mm 0 0;
+  break-inside: auto;
+  page-break-inside: auto;
+}
+
+.ats-section h3 {
+  margin: 0 0 5px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid #555;
+  color: #202124;
+  font-size: 11px;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  break-after: avoid !important;
+  page-break-after: avoid !important;
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+}
+
+.ats-section p {
+  margin: 0;
+  color: #333;
+  font-size: 8.8px;
+  line-height: 1.5;
+}
+
+.ats-bullet-list {
+  margin: 0;
+  padding-left: 14px;
+  color: #333;
+  font-size: 8.8px;
+  line-height: 1.48;
+}
+
+.ats-bullet-list li {
+  margin: 0 0 2.2px;
+  padding-left: 1px;
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+}
+
+.ats-experience,
+.ats-education {
+  width: 100%;
+  margin: 0 0 5.5mm;
+  break-inside: auto !important;
+  page-break-inside: auto !important;
+}
+
+.ats-experience-heading,
+.ats-education-heading {
+  display: block;
+  width: 100%;
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+  break-after: avoid !important;
+  page-break-after: avoid !important;
+}
+
+.ats-entry-topline {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  color: #555;
+  font-size: 8px;
+  line-height: 1.35;
+  font-weight: 600;
+}
+
+.ats-date {
+  flex: 1;
+  min-width: 0;
+}
+
+.ats-location {
+  flex: 0 0 auto;
+  text-align: right;
+}
+
+.ats-experience h4,
+.ats-education h4 {
+  margin: 2px 0 1px;
+  color: #202124;
+  font-size: 10px;
+  line-height: 1.25;
+  font-weight: 700;
+  break-after: avoid !important;
+  page-break-after: avoid !important;
+}
+
+.ats-company {
+  margin-bottom: 3px;
+  color: #444;
+  font-size: 8.7px;
+  line-height: 1.35;
+  font-weight: 600;
+}
+
+.ats-experience-bullets {
+  margin-top: 2px;
+  break-inside: auto !important;
+  page-break-inside: auto !important;
+}
+
+.ats-grade {
+  margin-top: 3px;
+  color: #555;
+  font-size: 8.3px;
+}
+
+@media (max-width: 700px) {
+  .template-options {
+    grid-template-columns: 1fr;
+  }
+
+  .ats-cv-page {
+    padding: 10mm;
+  }
+
+  .ats-header {
+    gap: 6mm;
+  }
+
+  .ats-photo-wrap,
+  .ats-photo,
+  .ats-photo-placeholder {
+    width: 25mm;
+    height: 30mm;
+  }
+}
+
+@media print {
+  .cv-ats .ats-cv-page {
+    min-height: 281mm;
+    padding: 14mm 16mm 15mm;
+  }
+
+  .cv-ats .ats-header,
+  .cv-ats .ats-section h3,
+  .cv-ats .ats-experience-heading,
+  .cv-ats .ats-education-heading {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .cv-ats .ats-experience,
+  .cv-ats .ats-education,
+  .cv-ats .ats-experience-bullets {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+
+  .cv-ats .ats-bullet-list li {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+}

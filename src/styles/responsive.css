@@ -1,0 +1,87 @@
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 8mm 10mm 8mm 10mm;
+  }
+
+  html,
+  body,
+  #root {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+  }
+
+  .editor {
+    display: none !important;
+  }
+
+  .preview {
+    width: 100%;
+    height: auto;
+    padding: 0;
+    overflow: visible;
+    background: #fff;
+  }
+
+  .cv {
+    width: 190mm;
+    min-height: 281mm;
+    margin: 0 auto;
+    box-shadow: none;
+  }
+
+  .experience-entry {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+
+  .experience-bullet {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .sidebar-section,
+  .sidebar-entry,
+  .language-row,
+  .contact-row,
+  .skill-category {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  a {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+}
+
+@media (max-width: 1200px) {
+  .app {
+    grid-template-columns: 370px minmax(0, 1fr);
+  }
+
+  .preview {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 900px) {
+  .app {
+    display: block;
+    height: auto;
+    overflow: visible;
+  }
+
+  .editor {
+    height: auto;
+    border-right: none;
+  }
+
+  .preview {
+    height: auto;
+    min-height: 100vh;
+    overflow: auto;
+  }
+}

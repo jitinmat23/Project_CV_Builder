@@ -1,0 +1,142 @@
+.item-body textarea:focus {
+  outline: none;
+  border-color: #0058a4;
+  box-shadow: 0 0 0 2px rgba(0, 88, 164, 0.1);
+}
+
+.editor-card textarea,
+.item-body textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.profile-editor {
+  min-height: 130px !important;
+}
+
+.editor-item {
+  margin-bottom: 10px;
+  border: 1px solid #d8dce1;
+  border-radius: 8px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.editor-item summary {
+  display: block;
+  padding: 13px 14px;
+  cursor: pointer;
+  list-style: none;
+  background: #f7f8fa;
+}
+
+.editor-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.editor-item summary::after {
+  content: '＋';
+  float: right;
+  color: #0058a4;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.editor-item[open] summary::after {
+  content: '−';
+}
+
+.item-summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding-right: 20px;
+}
+
+.item-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 27px;
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  background: #0058a4;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.item-summary > div {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.item-summary strong {
+  overflow: hidden;
+  color: #333;
+  font-size: 13px;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.item-summary span:not(.item-number) {
+  overflow: hidden;
+  margin-top: 2px;
+  color: #666;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.item-summary small {
+  margin-top: 2px;
+  color: #0058a4;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.item-body {
+  padding: 16px;
+  border-top: 1px solid #e2e4e7;
+}
+
+.helper-text {
+  display: block;
+  margin-top: 4px;
+  color: #777;
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.delete-button {
+  margin-top: 5px;
+  padding: 8px 11px;
+  border: 0;
+  border-radius: 5px;
+  background: #b3261e;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.add-section-button {
+  width: 100%;
+  margin-top: 8px;
+  padding: 10px;
+  border: 1px dashed #0058a4;
+  border-radius: 6px;
+  background: #fff;
+  color: #0058a4;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.add-section-button:hover {
+  background: #f2f7fb;
+}

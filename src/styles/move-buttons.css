@@ -1,0 +1,33 @@
+.experience-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.move-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 30px;
+  padding: 0;
+  border: 1px solid #ccd1d7;
+  border-radius: 5px;
+  background: #fff;
+  color: #0058a4;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.move-button:hover {
+  border-color: #0058a4;
+  background: #f2f7fb;
+}
+
+.experience-actions .delete-button {
+  margin-top: 0;
+}
