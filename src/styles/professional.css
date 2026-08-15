@@ -24,9 +24,6 @@
  *
  * 31% = left sidebar
  * 69% = main content
- *
- * This also allows the gray area to continue when the
- * PDF content flows onto page 2 or later.
  */
 .cv-professional {
   background:
@@ -428,44 +425,89 @@
    CUSTOM CV SECTIONS
    ========================================================= */
 
+/*
+ * Main-content custom sections use the same visual language
+ * as the built-in Professional sections.
+ */
 .custom-section-view {
-  margin-top: 7mm;
+  width: 100%;
+  margin: 0 0 8mm;
+  text-align: left;
   break-inside: auto;
   page-break-inside: auto;
 }
 
 .custom-section-view h3 {
-  margin: 0 0 5px;
-  padding-bottom: 3px;
-  border-bottom: 1px solid currentColor;
-  font-size: 10px;
+  width: 100%;
+  margin: 0 0 10px;
+  padding-bottom: 5px;
+
+  border-bottom: 2px solid #0058a4;
+
+  color: #4b4b4b;
+  font-size: 13px;
   line-height: 1.2;
-  font-weight: 700;
-  letter-spacing: 0.45px;
-  break-after: avoid;
-  page-break-after: avoid;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+
+  text-align: left;
+
+  break-after: avoid !important;
+  page-break-after: avoid !important;
 }
 
 .custom-section-content {
   margin: 0;
+
+  color: #333;
+  font-size: 9px;
+  line-height: 1.5;
+
   white-space: pre-line;
-  color: inherit;
-  font-size: 8.5px;
-  line-height: 1.45;
+  text-align: left;
 }
 
+/*
+ * Professional sidebar custom sections match built-in
+ * sidebar sections such as Hobbies and Languages.
+ */
 .cv-sidebar .custom-section-view {
-  margin-top: 5mm;
+  width: 100%;
+  margin: 0 0 7mm;
+  text-align: left;
+
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
 }
 
 .cv-sidebar .custom-section-view h3 {
-  font-size: 8.5px;
-  letter-spacing: 0.35px;
+  width: 100%;
+  margin: 0 0 10px;
+  padding-bottom: 5px;
+
+  border-bottom: 2px solid #0058a4;
+
+  color: #4b4b4b;
+  font-size: 13px;
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+
+  text-align: left;
+
+  break-after: avoid !important;
+  page-break-after: avoid !important;
 }
 
 .cv-sidebar .custom-section-content {
-  font-size: 7.8px;
-  line-height: 1.42;
+  margin: 0;
+
+  color: #333;
+  font-size: 8.5px;
+  line-height: 1.4;
+
+  white-space: pre-line;
+  text-align: left;
 }
 
 .ats-custom-content {
