@@ -140,3 +140,193 @@
 .add-section-button:hover {
   background: #f2f7fb;
 }
+
+
+/* =========================================================
+   CUSTOM SECTIONS EDITOR
+   ========================================================= */
+
+.custom-sections-editor {
+  margin: 18px 0;
+  padding: 18px;
+  border: 1px solid var(--border, #d9dee5);
+  border-radius: 10px;
+  background: var(--background, #f8f9fb);
+}
+
+.custom-sections-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.custom-sections-header h2 {
+  margin: 0;
+  color: var(--text, #2f3033);
+  font-size: 17px;
+  line-height: 1.25;
+  font-weight: 800;
+}
+
+.custom-sections-header p {
+  margin: 5px 0 0;
+  max-width: 680px;
+  color: var(--muted, #72767c);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.custom-add-button {
+  flex: 0 0 auto;
+  min-height: 36px;
+  padding: 0 13px;
+  border: 0 !important;
+  border-radius: 6px !important;
+  background: var(--primary, #075b9f) !important;
+  color: #fff !important;
+  font: 700 12px/36px inherit;
+  cursor: pointer;
+}
+
+.custom-section-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.custom-section-card {
+  padding: 14px;
+  border: 1px solid #d9dee5;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.custom-section-card-top {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 12px;
+}
+
+.custom-order-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.custom-move-button {
+  width: 30px;
+  height: 30px;
+  padding: 0 !important;
+  border: 1px solid #d1d7de !important;
+  border-radius: 5px !important;
+  background: #fff !important;
+  color: #555b62 !important;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.custom-move-button:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+}
+
+.custom-visible-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  color: #555b62;
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.custom-visible-toggle input {
+  margin: 0;
+}
+
+.custom-delete-button {
+  min-height: 30px;
+  padding: 0 9px;
+  border: 1px solid #e0c7c5 !important;
+  border-radius: 5px !important;
+  background: #fff !important;
+  color: #a33b34 !important;
+  font: 650 11px/28px inherit;
+  cursor: pointer;
+}
+
+.custom-field {
+  display: block;
+  margin-bottom: 11px;
+}
+
+.custom-field > span {
+  display: block;
+  margin-bottom: 5px;
+  color: #4a4f55;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.custom-field input,
+.custom-field textarea,
+.custom-field select {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #cfd5dc !important;
+  border-radius: 5px !important;
+  background: #fff !important;
+  color: #2f3033 !important;
+  font: 13px/1.45 inherit;
+  outline: none;
+}
+
+.custom-field input,
+.custom-field select {
+  min-height: 38px;
+  padding: 7px 9px;
+}
+
+.custom-field textarea {
+  min-height: 100px;
+  padding: 8px 9px;
+  resize: vertical;
+}
+
+.custom-field input:focus,
+.custom-field textarea:focus,
+.custom-field select:focus {
+  border-color: var(--primary, #075b9f) !important;
+  box-shadow: 0 0 0 2px rgba(7, 91, 159, .08);
+}
+
+.custom-position-help,
+.custom-empty {
+  margin: 4px 0 0;
+  color: #7a7f85;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+@media (max-width: 700px) {
+  .custom-sections-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .custom-add-button {
+    width: 100%;
+  }
+
+  .custom-section-card-top {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .custom-visible-toggle {
+    margin-left: 0;
+  }
+}

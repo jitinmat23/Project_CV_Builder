@@ -3,7 +3,7 @@ import { getSafeUrl } from '../../utils/url'
 import { cvLabels } from '../../utils/i18n'
 
 export default function ATSPreview() {
-  const { cv, language } = useCV()
+  const { cv, language, sectionVisibility } = useCV()
   const labels = cvLabels[language]
 
   return (
@@ -94,14 +94,14 @@ export default function ATSPreview() {
         </div>
       </header>
 
-      {cv.profile.trim() && (
+      {sectionVisibility.profile && cv.profile.trim() && (
         <section className="ats-section">
           <h3>{labels.profile}</h3>
           <p>{cv.profile}</p>
         </section>
       )}
 
-      {cv.skills.length > 0 && (
+      {sectionVisibility.skills && cv.skills.length > 0 && (
         <section className="ats-section">
           <h3>{labels.skills}</h3>
 
@@ -116,7 +116,7 @@ export default function ATSPreview() {
         </section>
       )}
 
-      {cv.experiences.length > 0 && (
+      {sectionVisibility.experience && cv.experiences.length > 0 && (
         <section className="ats-section">
           <h3>{labels.workExperience}</h3>
 
@@ -166,7 +166,7 @@ export default function ATSPreview() {
         </section>
       )}
 
-      {cv.educations.length > 0 && (
+      {sectionVisibility.education && cv.educations.length > 0 && (
         <section className="ats-section">
           <h3>{labels.education}</h3>
 
@@ -205,7 +205,7 @@ export default function ATSPreview() {
         </section>
       )}
 
-      {cv.certifications.length > 0 && (
+      {sectionVisibility.certifications && cv.certifications.length > 0 && (
         <section className="ats-section">
           <h3>{labels.certifications}</h3>
 
@@ -231,7 +231,7 @@ export default function ATSPreview() {
         </section>
       )}
 
-      {cv.languages.length > 0 && (
+      {sectionVisibility.languages && cv.languages.length > 0 && (
         <section className="ats-section">
           <h3>{labels.languageSkills}</h3>
 
@@ -245,7 +245,7 @@ export default function ATSPreview() {
         </section>
       )}
 
-      {cv.publication.name.trim() && (
+      {sectionVisibility.publication && cv.publication.name.trim() && (
         <section className="ats-section">
           <h3>{labels.publications}</h3>
 
@@ -265,12 +265,30 @@ export default function ATSPreview() {
         </section>
       )}
 
-      {cv.hobbies.trim() && (
+      {sectionVisibility.interests && cv.hobbies.trim() && (
         <section className="ats-section">
           <h3>{labels.interests}</h3>
           <p>{cv.hobbies}</p>
         </section>
       )}
+
+      {cv.customSections
+        .filter(section => section.visible && section.title.trim() && section.content.trim())
+        .sort((a, b) => a.order - b.order)
+        .map(section => (
+          <section className="ats-section ats-custom-section" key={section.id}>
+            <h3>{section.title}</h3>
+            <div className="ats-custom-content">
+              {section.content.split('\n').map((line, index) =>
+                line.trim() ? (
+                  <div className="ats-custom-line" key={index}>
+                    {line.trim()}
+                  </div>
+                ) : null
+              )}
+            </div>
+          </section>
+        ))}
     </div>
   )
 }

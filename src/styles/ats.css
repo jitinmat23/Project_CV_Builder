@@ -269,3 +269,68 @@
     page-break-inside: avoid !important;
   }
 }
+
+
+/* =========================================================
+   CUSTOM CV SECTIONS
+   ========================================================= */
+
+.custom-section-view {
+  margin-top: 7mm;
+  break-inside: auto;
+  page-break-inside: auto;
+}
+
+.custom-section-view h3 {
+  margin: 0 0 5px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid currentColor;
+  font-size: 10px;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: .45px;
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+.custom-section-content {
+  margin: 0;
+  white-space: pre-line;
+  color: inherit;
+  font-size: 8.5px;
+  line-height: 1.45;
+}
+
+.cv-sidebar .custom-section-view {
+  margin-top: 5mm;
+}
+
+.cv-sidebar .custom-section-view h3 {
+  font-size: 8.5px;
+  letter-spacing: .35px;
+}
+
+.cv-sidebar .custom-section-content {
+  font-size: 7.8px;
+  line-height: 1.42;
+}
+
+.ats-custom-content {
+  white-space: pre-line;
+}
+
+
+.ats-custom-section {
+  break-inside: auto;
+  page-break-inside: auto;
+}
+
+.ats-custom-content {
+  color: #333;
+  font-size: 8.8px;
+  line-height: 1.5;
+}
+
+.ats-custom-line {
+  margin: 0 0 2px;
+}
