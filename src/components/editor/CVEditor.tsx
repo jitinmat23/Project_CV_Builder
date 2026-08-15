@@ -10,6 +10,8 @@ import PublicationEditor from './PublicationEditor'
 import HobbiesEditor from './HobbiesEditor'
 import ProfileManager from './ProfileManager'
 import TemplateSelector from './TemplateSelector'
+import SectionVisibilityEditor from './SectionVisibilityEditor'
+import CustomSectionsEditor from './CustomSectionsEditor'
 import { useCV } from '../../context/CVContext'
 
 export default function CVEditor() {
@@ -39,6 +41,10 @@ export default function CVEditor() {
       <ProfileManager />
 
       <TemplateSelector />
+
+      <SectionVisibilityEditor />
+
+      <CustomSectionsEditor />
 
       <EditorSection title="Personal Information">
         <PersonalInfoEditor />

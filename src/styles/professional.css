@@ -5,6 +5,10 @@
   background: #e9edf2;
 }
 
+/* =========================================================
+   PROFESSIONAL CV CONTAINER
+   ========================================================= */
+
 .cv {
   width: 190mm;
   min-height: 281mm;
@@ -12,6 +16,32 @@
   background: #fff;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
 }
+
+/*
+ * Professional template:
+ * Keep the gray sidebar background continuous across
+ * the complete CV height.
+ *
+ * 31% = left sidebar
+ * 69% = main content
+ *
+ * This also allows the gray area to continue when the
+ * PDF content flows onto page 2 or later.
+ */
+.cv-professional {
+  background:
+    linear-gradient(
+      to right,
+      #f3f3f3 0%,
+      #f3f3f3 31%,
+      #ffffff 31%,
+      #ffffff 100%
+    );
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
 
 .cv-top {
   display: flex;
@@ -95,6 +125,10 @@
   background: #fff;
 }
 
+/* =========================================================
+   MAIN TWO-COLUMN CONTENT
+   ========================================================= */
+
 .cv-content {
   display: flex;
   align-items: flex-start;
@@ -105,7 +139,13 @@
   flex: 0 0 31%;
   width: 31%;
   padding: 8mm 7mm;
-  background: #f3f3f3;
+
+  /*
+   * Background is supplied by .cv-professional so that
+   * the gray sidebar area continues across PDF pages.
+   */
+  background: transparent;
+
   text-align: left;
 }
 
@@ -132,6 +172,53 @@
   page-break-after: avoid !important;
 }
 
+/* =========================================================
+   SOCIAL ICONS
+   ========================================================= */
+
+.contact-social-links {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 8px 0 9px;
+}
+
+.social-icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  color: #4b4b4b !important;
+  text-decoration: none !important;
+  transition:
+    color 0.15s ease,
+    background 0.15s ease,
+    transform 0.15s ease;
+}
+
+.social-icon-link:hover {
+  color: #0058a4 !important;
+  background: rgba(0, 88, 164, 0.08);
+  transform: translateY(-1px);
+}
+
+.social-icon-svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.social-icon-xing {
+  width: 19px;
+  height: 19px;
+}
+
+/* =========================================================
+   CONTACT
+   ========================================================= */
+
 .contact-row {
   width: 100%;
   margin-bottom: 6px;
@@ -152,6 +239,10 @@
   cursor: pointer;
   word-break: break-word;
 }
+
+/* =========================================================
+   SIDEBAR ENTRIES
+   ========================================================= */
 
 .sidebar-entry {
   width: 100%;
@@ -190,6 +281,10 @@
   line-height: 1.4;
 }
 
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
 .cv-main {
   flex: 0 0 69%;
   width: 69%;
@@ -209,6 +304,10 @@
   font-size: 9px;
   line-height: 1.5;
 }
+
+/* =========================================================
+   SKILLS
+   ========================================================= */
 
 .skills-list {
   display: flex;
@@ -236,6 +335,10 @@
   flex: 1;
   min-width: 0;
 }
+
+/* =========================================================
+   EXPERIENCE
+   ========================================================= */
 
 .experience-entry {
   width: 100%;
@@ -319,4 +422,52 @@
   min-width: 0;
   margin: 0;
   padding: 0;
+}
+
+/* =========================================================
+   CUSTOM CV SECTIONS
+   ========================================================= */
+
+.custom-section-view {
+  margin-top: 7mm;
+  break-inside: auto;
+  page-break-inside: auto;
+}
+
+.custom-section-view h3 {
+  margin: 0 0 5px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid currentColor;
+  font-size: 10px;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: 0.45px;
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+.custom-section-content {
+  margin: 0;
+  white-space: pre-line;
+  color: inherit;
+  font-size: 8.5px;
+  line-height: 1.45;
+}
+
+.cv-sidebar .custom-section-view {
+  margin-top: 5mm;
+}
+
+.cv-sidebar .custom-section-view h3 {
+  font-size: 8.5px;
+  letter-spacing: 0.35px;
+}
+
+.cv-sidebar .custom-section-content {
+  font-size: 7.8px;
+  line-height: 1.42;
+}
+
+.ats-custom-content {
+  white-space: pre-line;
 }

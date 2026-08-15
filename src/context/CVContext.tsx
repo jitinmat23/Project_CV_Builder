@@ -16,6 +16,10 @@ import type {
   Experience,
   Language,
   SkillCategory,
+  CustomSection,
+  CustomSectionPosition,
+  CVSectionKey,
+  CVSectionVisibility,
 } from '../types/cv'
 import { downloadCVPdf } from '../utils/pdf'
 
@@ -30,6 +34,7 @@ export type CVProfile = {
   name: string
   template: CVTemplate
   language: CVLanguage
+  sectionVisibility: CVSectionVisibility
   cv: CVData
 }
 
@@ -43,6 +48,8 @@ type CVContextValue = {
   setTemplate: (template: CVTemplate) => void
   language: CVLanguage
   setLanguage: (language: CVLanguage) => void
+  sectionVisibility: CVSectionVisibility
+  setSectionVisibility: (section: CVSectionKey, visible: boolean) => void
 
   updatePersonal: (
     field: keyof CVData['personal'],
@@ -66,6 +73,17 @@ type CVContextValue = {
   ) => void
 
   updateHobbies: (value: string) => void
+
+  addCustomSection: (title?: string) => void
+  updateCustomSection: (
+    id: string,
+    field: keyof Omit<CustomSection, 'id' | 'order'>,
+    value: string | boolean | CustomSectionPosition
+  ) => void
+  deleteCustomSection: (id: string) => void
+  moveCustomSectionUp: (id: string) => void
+  moveCustomSectionDown: (id: string) => void
+
   updatePhoto: (file: File) => void
   downloadPdf: () => void
 
@@ -96,6 +114,21 @@ function cloneCV(cv: CVData): CVData {
   ) as CVData
 }
 
+export const DEFAULT_SECTION_VISIBILITY: CVSectionVisibility = {
+  profile: true,
+  skills: true,
+  experience: true,
+  education: true,
+  certifications: true,
+  languages: true,
+  publication: true,
+  interests: true,
+}
+
+function createDefaultSectionVisibility(): CVSectionVisibility {
+  return { ...DEFAULT_SECTION_VISIBILITY }
+}
+
 function createId(): string {
   return `${Date.now()}-${Math.random()
     .toString(36)
@@ -108,6 +141,7 @@ function createDefaultProfile(): CVProfile {
     name: 'Software Test Engineer',
     template: 'professional',
     language: 'en',
+    sectionVisibility: createDefaultSectionVisibility(),
     cv: cloneCV(defaultCV),
   }
 }
@@ -141,6 +175,21 @@ function loadInitialProfiles(): {
               profile.language === 'de'
                 ? 'de'
                 : 'en',
+            sectionVisibility: {
+              ...createDefaultSectionVisibility(),
+              ...(profile.sectionVisibility || {}),
+            },
+            cv: {
+              ...cloneCV(defaultCV),
+              ...(profile.cv || {}),
+              personal: {
+                ...cloneCV(defaultCV).personal,
+                ...(profile.cv?.personal || {}),
+              },
+              customSections: Array.isArray(profile.cv?.customSections)
+                ? profile.cv.customSections
+                : [],
+            },
           }))
 
         return {
@@ -178,6 +227,7 @@ function loadInitialProfiles(): {
           'My CV',
         template: 'professional',
         language: 'en',
+        sectionVisibility: createDefaultSectionVisibility(),
         cv: {
           ...cloneCV(defaultCV),
           ...parsedCV,
@@ -265,6 +315,11 @@ export function CVProvider({
       ? 'de'
       : 'en'
 
+  const sectionVisibility: CVSectionVisibility = {
+    ...DEFAULT_SECTION_VISIBILITY,
+    ...(activeProfile?.sectionVisibility || {}),
+  }
+
   /*
    * AUTO SAVE ALL PROFILES
    */
@@ -304,6 +359,23 @@ export function CVProvider({
       currentProfiles.map(profile =>
         profile.id === activeProfileId
           ? { ...profile, language: nextLanguage }
+          : profile
+      )
+    )
+  }
+
+  function setSectionVisibility(section: CVSectionKey, visible: boolean) {
+    setProfiles(currentProfiles =>
+      currentProfiles.map(profile =>
+        profile.id === activeProfileId
+          ? {
+              ...profile,
+              sectionVisibility: {
+                ...DEFAULT_SECTION_VISIBILITY,
+                ...(profile.sectionVisibility || {}),
+                [section]: visible,
+              },
+            }
           : profile
       )
     )
@@ -493,6 +565,106 @@ export function CVProvider({
     }))
   }
 
+  function addCustomSection(
+    title = 'New Section'
+  ) {
+    updateCurrentCV(current => {
+      const customSections = current.customSections || []
+
+      return {
+        ...current,
+        customSections: [
+          ...customSections,
+          {
+            id: createId(),
+            title,
+            content: '',
+            visible: true,
+            position: 'main',
+            order: customSections.length,
+          },
+        ],
+      }
+    })
+  }
+
+  function updateCustomSection(
+    id: string,
+    field: keyof Omit<CustomSection, 'id' | 'order'>,
+    value: string | boolean | CustomSectionPosition
+  ) {
+    updateCurrentCV(current => ({
+      ...current,
+      customSections: (current.customSections || []).map(section =>
+        section.id === id
+          ? { ...section, [field]: value }
+          : section
+      ),
+    }))
+  }
+
+  function deleteCustomSection(id: string) {
+    updateCurrentCV(current => {
+      const remaining = (current.customSections || [])
+        .filter(section => section.id !== id)
+        .map((section, index) => ({
+          ...section,
+          order: index,
+        }))
+
+      return {
+        ...current,
+        customSections: remaining,
+      }
+    })
+  }
+
+  function moveCustomSectionUp(id: string) {
+    updateCurrentCV(current => {
+      const sections = [...(current.customSections || [])]
+      const index = sections.findIndex(section => section.id === id)
+
+      if (index <= 0) return current
+
+      ;[sections[index - 1], sections[index]] = [
+        sections[index],
+        sections[index - 1],
+      ]
+
+      return {
+        ...current,
+        customSections: sections.map((section, order) => ({
+          ...section,
+          order,
+        })),
+      }
+    })
+  }
+
+  function moveCustomSectionDown(id: string) {
+    updateCurrentCV(current => {
+      const sections = [...(current.customSections || [])]
+      const index = sections.findIndex(section => section.id === id)
+
+      if (index < 0 || index >= sections.length - 1) {
+        return current
+      }
+
+      ;[sections[index], sections[index + 1]] = [
+        sections[index + 1],
+        sections[index],
+      ]
+
+      return {
+        ...current,
+        customSections: sections.map((section, order) => ({
+          ...section,
+          order,
+        })),
+      }
+    })
+  }
+
   function updatePhoto(
     file: File
   ) {
@@ -538,6 +710,7 @@ export function CVProvider({
       name,
       template: 'professional',
       language: 'en',
+      sectionVisibility: createDefaultSectionVisibility(),
       cv: cloneCV(defaultCV),
     }
 
@@ -570,6 +743,10 @@ export function CVProvider({
       name: `${source.name} Copy`,
       template: source.template || 'professional',
       language: source.language || 'en',
+      sectionVisibility: {
+        ...DEFAULT_SECTION_VISIBILITY,
+        ...(source.sectionVisibility || {}),
+      },
       cv: cloneCV(
         source.cv
       ),
@@ -718,6 +895,8 @@ export function CVProvider({
         setTemplate,
         language,
         setLanguage,
+        sectionVisibility,
+        setSectionVisibility,
 
         updatePersonal,
         updateProfile,
@@ -732,6 +911,11 @@ export function CVProvider({
         updateLanguages,
         updatePublication,
         updateHobbies,
+        addCustomSection,
+        updateCustomSection,
+        deleteCustomSection,
+        moveCustomSectionUp,
+        moveCustomSectionDown,
         updatePhoto,
         downloadPdf,
 

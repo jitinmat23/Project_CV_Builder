@@ -119,4 +119,5 @@ export const defaultCV: CVData = {
     url: '',
   },
   hobbies: 'Badminton, Travelling, Guitar, Cycling',
+  customSections: [],
 }

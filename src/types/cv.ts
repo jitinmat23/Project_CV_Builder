@@ -50,6 +50,29 @@ export type Publication = {
   url: string
 }
 
+export type CVSectionKey =
+  | 'profile'
+  | 'skills'
+  | 'experience'
+  | 'education'
+  | 'certifications'
+  | 'languages'
+  | 'publication'
+  | 'interests'
+
+export type CVSectionVisibility = Record<CVSectionKey, boolean>
+
+export type CustomSectionPosition = 'main' | 'sidebar'
+
+export type CustomSection = {
+  id: string
+  title: string
+  content: string
+  visible: boolean
+  position: CustomSectionPosition
+  order: number
+}
+
 export type CVData = {
   personal: PersonalInfo
   profile: string
@@ -60,4 +83,5 @@ export type CVData = {
   languages: Language[]
   publication: Publication
   hobbies: string
+  customSections: CustomSection[]
 }

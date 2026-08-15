@@ -1,0 +1,11 @@
+.section-visibility { width: 100%; box-sizing: border-box; margin: 0 0 18px; padding: 18px; border: 1px solid #d9dee5; border-radius: 10px; background: #fff; }
+.section-visibility-header h2 { margin: 0; color: #2f3033; font-size: 17px; line-height: 1.2; font-weight: 800; }
+.section-visibility-header p { margin: 5px 0 14px; color: #72767c; font-size: 12px; line-height: 1.45; }
+.section-visibility-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.section-visibility-item { position: relative; display: flex; align-items: center; gap: 9px; min-height: 40px; box-sizing: border-box; padding: 7px 10px; border: 1px solid #e0e4e8; border-radius: 6px; background: #fafbfc; color: #36393d; cursor: pointer; user-select: none; }
+.section-visibility-item:hover { border-color: #b9c6d2; background: #f7fafd; }
+.section-visibility-item input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.section-visibility-check { display: flex; align-items: center; justify-content: center; flex: 0 0 20px; width: 20px; height: 20px; box-sizing: border-box; border: 1px solid #b8c0c8; border-radius: 4px; background: #fff; color: #fff; font-size: 13px; font-weight: 800; }
+.section-visibility-item input:checked + .section-visibility-check { border-color: #075b9f; background: #075b9f; }
+.section-visibility-label { font-size: 12px; font-weight: 650; }
+@media (max-width: 700px) { .section-visibility-list { grid-template-columns: 1fr; } }
