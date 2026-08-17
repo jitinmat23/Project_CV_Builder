@@ -1,4 +1,4 @@
-.cv-ats {
+ .cv-ats {
   min-height: 281mm;
   background: #fff;
   color: #202124;
@@ -78,6 +78,14 @@
   text-underline-offset: 1px;
 }
 
+/* =========================================================
+   ATS PROFILE PHOTO
+   ========================================================= */
+
+/*
+ * Keep the photo area aligned to the right, but never force
+ * the uploaded image into a fixed aspect ratio.
+ */
 .ats-photo-wrap {
   display: flex;
   align-items: flex-start;
@@ -90,12 +98,21 @@
   page-break-inside: avoid !important;
 }
 
-.ats-photo,
-.ats-photo-placeholder {
+/*
+ * Preserve the uploaded photo's original proportions.
+ *
+ * The image can be smaller than the photo area, but it can
+ * never exceed the original ATS photo area dimensions.
+ */
+.ats-photo {
   display: block;
-  width: 31mm;
-  height: 37mm;
-  object-fit: cover;
+  width: auto;
+  height: auto;
+  max-width: 31mm;
+  max-height: 37mm;
+  object-fit: contain;
+  object-position: center;
+  flex: 0 0 auto;
 }
 
 .ats-photo-placeholder {
@@ -103,6 +120,8 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
+  width: 31mm;
+  height: 37mm;
   border: 1px solid #d1d1d1;
   background: #f5f5f5;
   color: #888;
@@ -235,8 +254,17 @@
     gap: 6mm;
   }
 
-  .ats-photo-wrap,
-  .ats-photo,
+  .ats-photo-wrap {
+    flex-basis: 25mm;
+    width: 25mm;
+    height: 30mm;
+  }
+
+  .ats-photo {
+    max-width: 25mm;
+    max-height: 30mm;
+  }
+
   .ats-photo-placeholder {
     width: 25mm;
     height: 30mm;
