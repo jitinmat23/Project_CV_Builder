@@ -189,6 +189,18 @@ function loadInitialProfiles(): {
               customSections: Array.isArray(profile.cv?.customSections)
                 ? profile.cv.customSections
                 : [],
+              experiences: Array.isArray(profile.cv?.experiences)
+                ? profile.cv.experiences.map(experience => ({
+                    ...experience,
+                    country: experience.country || '',
+                  }))
+                : cloneCV(defaultCV).experiences,
+              educations: Array.isArray(profile.cv?.educations)
+                ? profile.cv.educations.map(education => ({
+                    ...education,
+                    country: education.country || '',
+                  }))
+                : cloneCV(defaultCV).educations,
             },
           }))
 
@@ -237,6 +249,18 @@ function loadInitialProfiles(): {
             ).personal,
             ...(parsedCV.personal || {}),
           },
+          experiences: Array.isArray(parsedCV.experiences)
+            ? parsedCV.experiences.map(experience => ({
+                ...experience,
+                country: experience.country || '',
+              }))
+            : cloneCV(defaultCV).experiences,
+          educations: Array.isArray(parsedCV.educations)
+            ? parsedCV.educations.map(education => ({
+                ...education,
+                country: education.country || '',
+              }))
+            : cloneCV(defaultCV).educations,
         },
       }
 

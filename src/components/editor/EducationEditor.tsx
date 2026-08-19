@@ -16,6 +16,7 @@ export default function EducationEditor() {
         degree: 'New Degree',
         institution: 'Institution',
         dates: '',
+        country: '',
         grade: '',
       },
     ])
@@ -78,6 +79,15 @@ export default function EducationEditor() {
                 <input
                   value={education.dates}
                   onChange={e => update(index, 'dates', e.target.value)}
+                />
+              </label>
+
+              <label>
+                Country
+                <input
+                  value={education.country}
+                  onChange={e => update(index, 'country', e.target.value)}
+                  placeholder="e.g. Germany"
                 />
               </label>
 

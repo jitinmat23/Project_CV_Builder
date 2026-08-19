@@ -134,9 +134,9 @@ export default function ATSPreview() {
                     {experience.dates}
                   </span>
 
-                  {cv.personal.location && (
+                  {experience.country && (
                     <span className="ats-location">
-                      {cv.personal.location}
+                      {experience.country}
                     </span>
                   )}
                 </div>
@@ -181,9 +181,9 @@ export default function ATSPreview() {
                     {education.dates}
                   </span>
 
-                  {cv.personal.location && (
+                  {education.country && (
                     <span className="ats-location">
-                      {cv.personal.location}
+                      {education.country}
                     </span>
                   )}
                 </div>

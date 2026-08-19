@@ -34,6 +34,7 @@ export const defaultCV: CVData = {
       position: 'Senior Consultant',
       company: 'ESPRiT Engineering GmbH, Ingolstadt',
       dates: '11/2021 - Heute',
+      country: '',
       description: [
         'Head of the Test Team for Powertrain Manager and Powertrain Observer at CARIAD.',
         'Translating customer requirements into test plans, test cases and test processes.',
@@ -58,6 +59,7 @@ export const defaultCV: CVData = {
       position: 'Master Thesis - ACC',
       company: 'Department of Electromobility, RPTU, Kaiserslautern',
       dates: '03/2021 - 09/2021',
+      country: '',
       description: [
         'Design and implementation of an EACC system to minimise fuel consumption.',
         'Formulation as a mixed-integer quadratic programming problem with quadratic constraints (MIQCQP).',
@@ -71,6 +73,7 @@ export const defaultCV: CVData = {
       position: 'Internship',
       company: 'Battery Development, Mercedes-Benz AG',
       dates: '10/2019 - 03/2020',
+      country: '',
       description: [
         'Concept development for battery housings for future electric vehicles.',
         'Investigation of thermal runaway and optimisation of safety components.',
@@ -80,6 +83,7 @@ export const defaultCV: CVData = {
       position: 'Product Design Engineer',
       company: 'Mercedes-Benz Research and Development India',
       dates: '07/2015 - 08/2018',
+      country: '',
       description: [
         'Development of door components for vehicle bodies, including simulation and series production.',
         'Optimisation in terms of corrosion protection, costs and quality.',
@@ -92,12 +96,14 @@ export const defaultCV: CVData = {
       degree: 'M.Sc. in Commercial Vehicle Technology',
       institution: 'Technische Universität Kaiserslautern (now RPTU)',
       dates: '2018 - 2021',
+      country: '',
       grade: '1.8',
     },
     {
       degree: 'B.E. Mechanical Engineering',
       institution: 'The National Institute of Engineering, India',
       dates: '2011 - 2015',
+      country: '',
       grade: '1.7',
     },
   ],

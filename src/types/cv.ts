@@ -2,6 +2,7 @@ export type Experience = {
   position: string
   company: string
   dates: string
+  country: string
   description: string[]
 }
 
@@ -9,6 +10,7 @@ export type Education = {
   degree: string
   institution: string
   dates: string
+  country: string
   grade: string
 }
 

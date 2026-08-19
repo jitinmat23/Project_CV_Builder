@@ -16,6 +16,7 @@ export default function ExperienceEditor() {
         position: 'New Position',
         company: 'Company',
         dates: '',
+        country: '',
         description: ['New responsibility'],
       },
     ])
@@ -81,6 +82,15 @@ export default function ExperienceEditor() {
                 <input
                   value={experience.dates}
                   onChange={e => update(index, 'dates', e.target.value)}
+                />
+              </label>
+
+              <label>
+                Country
+                <input
+                  value={experience.country}
+                  onChange={e => update(index, 'country', e.target.value)}
+                  placeholder="e.g. Germany"
                 />
               </label>
 
