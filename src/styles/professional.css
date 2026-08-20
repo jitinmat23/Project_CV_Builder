@@ -449,10 +449,11 @@
 }
 
 /* =========================================================
-   CUSTOM CV SECTIONS
+   PROFESSIONAL CUSTOM SECTIONS
    ========================================================= */
 
-.custom-section-view {
+/* Main content / right side */
+.cv-professional .cv-main .custom-section-view {
   width: 100%;
   margin: 0 0 8mm;
   padding: 0;
@@ -461,7 +462,7 @@
   page-break-inside: auto;
 }
 
-.custom-section-view h3 {
+.cv-professional .cv-main .custom-section-view h3 {
   width: 100%;
   margin: 0 0 10px;
   padding: 0 0 5px;
@@ -476,7 +477,7 @@
   page-break-after: avoid !important;
 }
 
-.custom-section-content {
+.cv-professional .cv-main .custom-section-content {
   width: 100%;
   margin: 0;
   padding: 0;
@@ -487,8 +488,8 @@
   text-align: left;
 }
 
-/* Professional sidebar custom sections */
-.cv-sidebar .custom-section-view {
+/* Left sidebar */
+.cv-professional .cv-sidebar .custom-section-view {
   width: 100%;
   margin: 0 0 7mm;
   padding: 0;
@@ -497,7 +498,7 @@
   page-break-inside: avoid !important;
 }
 
-.cv-sidebar .custom-section-view h3 {
+.cv-professional .cv-sidebar .custom-section-view h3 {
   width: 100%;
   margin: 0 0 10px;
   padding: 0 0 5px;
@@ -512,7 +513,7 @@
   page-break-after: avoid !important;
 }
 
-.cv-sidebar .custom-section-content {
+.cv-professional .cv-sidebar .custom-section-content {
   width: 100%;
   margin: 0;
   padding: 0;
