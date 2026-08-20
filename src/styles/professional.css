@@ -526,3 +526,55 @@
 .ats-custom-content {
   white-space: pre-line;
 }
+
+/* =========================================================
+   NATIVE PDF PRINT COLORS - PROFESSIONAL TEMPLATE
+   ========================================================= */
+
+@media print {
+  .cv-professional {
+    background:
+      linear-gradient(
+        to right,
+        #f3f3f3 0%,
+        #f3f3f3 31%,
+        #ffffff 31%,
+        #ffffff 100%
+      ) !important;
+
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .cv-professional .cv-sidebar {
+    background: transparent !important;
+
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .cv-professional .cv-header {
+    background: #464646 !important;
+    color: #fff !important;
+
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .cv-professional .date-badge {
+    background: #0058a4 !important;
+    color: #fff !important;
+
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .cv-professional .header-rule,
+  .cv-professional .sidebar-section h2,
+  .cv-professional .cv-section h2,
+  .cv-professional .custom-section-view h3,
+  .cv-professional .cv-sidebar .custom-section-view h3 {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
