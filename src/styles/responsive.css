@@ -85,3 +85,138 @@
     overflow: auto;
   }
 }
+
+
+/* =========================================================
+   NATIVE PDF EXPORT
+   ========================================================= */
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 8mm 10mm 8mm 10mm;
+  }
+
+  html,
+  body,
+  #root {
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  body {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .editor {
+    display: none !important;
+  }
+
+  .preview {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    background: #fff !important;
+  }
+
+  .cv {
+    display: block !important;
+    width: 190mm !important;
+    min-height: 281mm !important;
+    margin: 0 auto !important;
+    box-shadow: none !important;
+  }
+
+  /*
+   * Keep experience headers together, but let individual
+   * bullets flow naturally across page boundaries.
+   */
+  .experience-entry {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+
+  .experience-header {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .experience-bullets {
+    margin-top: 5px !important;
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+
+  .experience-bullet {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+
+  /*
+   * Professional colors.
+   */
+  .cv-professional {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+
+    background:
+      linear-gradient(
+        to right,
+        #f3f3f3 0%,
+        #f3f3f3 31%,
+        #ffffff 31%,
+        #ffffff 100%
+      ) !important;
+  }
+
+  .cv-professional .cv-sidebar {
+    background: transparent !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .cv-professional .cv-header {
+    background: #464646 !important;
+    color: #fff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .cv-professional .date-badge {
+    background: #0058a4 !important;
+    color: #fff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /*
+   * Keep hyperlinks as hyperlinks.
+   * Do NOT replace them with plain text.
+   */
+  a[href] {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+
+  /*
+   * Prevent the browser from adding URL text after links.
+   */
+  a[href]::after {
+    content: none !important;
+  }
+
+  .sidebar-section,
+  .sidebar-entry,
+  .language-row,
+  .contact-row,
+  .skill-category {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+}
