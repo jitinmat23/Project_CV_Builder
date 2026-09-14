@@ -579,3 +579,27 @@
     print-color-adjust: exact !important;
   }
 }
+
+/* PDF pagination - allow experiences to flow across pages */
+@media print {
+  .cv-professional .experience-entry {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+
+  .cv-professional .experience-header {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+
+  .cv-professional .experience-bullets {
+    display: block !important;
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+
+  .cv-professional .experience-bullet {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+}
